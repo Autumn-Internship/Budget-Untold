@@ -1,0 +1,72 @@
+body {
+  color: #191414;
+  font-family: sans-serif;
+}
+
+.header-section {
+  padding: 16px 0px;
+}
+
+.main-title {
+  margin: 32px auto;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  font-size: 2rem;
+}
+
+.main-section {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.big-p {
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin: 0;
+}
+
+.main-button {
+  padding: 16px 24px;
+  margin: 24px 0px;
+  font-size: 1rem;
+  color: #ffffff;
+  background-color: #1db954;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.main-button:hover {
+  padding: 16px 24px;
+  margin: 24px 0px;
+  font-size: 1rem;
+  color: #ffffff;
+  background-color: #4fb874;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.main-button:active {
+  padding: 16px 24px;
+  margin: 24px 0px;
+  font-size: 1rem;
+  color: #ffffff;
+  background-color: #1aa149;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+/*# sourceMappingURL=index.css.map */

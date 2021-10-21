@@ -10,15 +10,13 @@
 <body>
     <header>
         <section class="header-section">
-            <h1 class="main-title">Welcome to Festival Generator!</h1>
+            <p class="big-p">Hello, <span id="user-name"></span>!</p>
         </section>
     </header>
     <main>
         <section class="main-section">
-            <h2 id="sign-in">Sign in to generate your festival</h2>
-            <form method="get" action="./festival.html">
-                <button aria-describedby="sign-in" type="submit" class="main-button">Sign in with Spotify</button>
-            </form>
+            <h1 id="confirmation-message">Your festival awaits!</h1>
+            <button type="button" class="main-button" onclick="confirmGeneration()">Generate festival</button>
         </section>
     </main>
     <script src="../js/index.js"></script>

@@ -66,3 +66,26 @@ body {
     border-radius: 8px;
     cursor: pointer;
 }
+
+li {
+    list-style-type: none;
+}
+
+.menu-wrapper {
+    margin-top: 88px;
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-gap: 48px;
+}
+
+.menu-item {
+    display: flex;
+    width: 350px;
+    height: 350px;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    background-color: $main-color;
+    color: white;
+    text-decoration: none;
+}

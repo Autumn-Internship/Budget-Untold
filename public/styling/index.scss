@@ -89,3 +89,34 @@ li {
     color: white;
     text-decoration: none;
 }
+
+.form {
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+}
+
+.form * {
+    width: 100%;
+}
+
+.label {
+    font-weight: 600;
+    margin: 40px 0 16px 0;
+}
+
+.input {
+    height: 2rem;
+    border-radius: 8px;
+    border-color: #eaeaea;
+    border-style: solid;
+}
+
+.required::after {
+    content: "*";
+    color: red;
+}
+
+#confirmation-message {
+    text-align: center;
+}

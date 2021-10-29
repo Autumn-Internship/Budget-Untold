@@ -4,9 +4,9 @@ export const authToken = () => {
 
 export async function getCurrentUser() {
     let response = await fetch('https://api.spotify.com/v1/me',
-    {'method':'GET', 
+    {'method': 'GET', 
     'headers': {
-        'Authorization':`Bearer ${authToken()}`,
+        'Authorization': `Bearer ${authToken()}`,
         'Accept': 'application/json',
         'Content-Type': 'application/json'}
     });

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Around the World | Festival Generator</title>
+    <link rel="stylesheet" href="./styling/index.css">
+</head>
+<body>
+    <header>
+        <section class="header-section">
+            <p class="big-p">Hello, <span id="user-name"></span>!</p>
+        </section>
+    </header>
+    <main>
+        <section class="main-section">
+            <form class="form" id="world-form">
+                <h1 id="confirmation-message">Your festival awaits!</h1>
+                <label class="label required" for="country">Country </label>
+                <input class ="input" id="country" list="countriesList" name="country" autocomplete="off" required>
+                <datalist id="countriesList">
+                  
+                </datalist>
+                <label class="label required" for="category">Category </label>
+                <input class ="input" id="category" list="categoriesList" name="category" required>
+                <datalist id="categoriesList">
+                  
+                </datalist>
+                    <button id="world-festival-button" type="submit" class="main-button">Create playlist</button>
+                </form>
+        </section>
+    </main>
+    <script type="module" src="./js/index.js"></script>
+    <script type="module" src="./js/around-world.js"></script>
+</body>
+</html>

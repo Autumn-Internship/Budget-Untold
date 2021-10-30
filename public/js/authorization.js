@@ -3,7 +3,7 @@ const { OAuth2AuthCodePKCE } = window.OAuth2AuthCodePKCE;
 const oauth = new OAuth2AuthCodePKCE({
 authorizationUrl: 'https://accounts.spotify.com/authorize',
 tokenUrl: 'https://accounts.spotify.com/api/token',
-clientId: 'b6d8b343eb144555a940154101c4f479',
+clientId: '685a9551c89c41c79e76a35cbc55eb40',
 scopes: [],
 redirectUrl: 'http://127.0.0.1:8080/music-festival.html',
     onAccessTokenExpiry(refreshAccessToken) {

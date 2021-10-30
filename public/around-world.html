@@ -15,8 +15,20 @@
     </header>
     <main>
         <section class="main-section">
-            <h1 id="confirmation-message">Your festival awaits!</h1>
-            <button id="world-festival-button" onclick="followCountryPlaylist()" type="button" class="main-button">Create playlist</button>
+            <form class="form" id="world-form">
+                <h1 id="confirmation-message">Your festival awaits!</h1>
+                <label class="label required" for="country">Country </label>
+                <input class ="input" id="country" list="countriesList" name="country" autocomplete="off" required>
+                <datalist id="countriesList">
+                  
+                </datalist>
+                <label class="label required" for="category">Category </label>
+                <input class ="input" id="category" list="categoriesList" name="category" required>
+                <datalist id="categoriesList">
+                  
+                </datalist>
+                    <button id="world-festival-button" type="submit" class="main-button">Create playlist</button>
+                </form>
         </section>
     </main>
     <script type="module" src="./js/index.js"></script>

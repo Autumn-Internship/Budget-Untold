@@ -6,7 +6,11 @@ import {
   countryCodes,
   timeTable,
 } from "./data.js";
-import { getTopArtists, getTopTracks } from "./music-festival.js";
+import {
+  getTopArtists,
+  getTopTracks,
+  generateMusicFestivalPlaylist,
+} from "./music-festival.js";
 
 const userNameElement = document.getElementById("user-name");
 
@@ -29,10 +33,11 @@ if (userNameElement) {
 
 if (musicFestivalButton) {
   musicFestivalButton.onclick = () => {
+    let topTracks;
     confirmationElement.innerHTML = "Your festival has been created!";
     const topArtists = getTopArtists();
     topArtists.then((result) => {
-      const topTracks = getTopTracks(result.topArtistsArrayId);
+      topTracks = getTopTracks(result.topArtistsArrayId);
       topTracks.then((result) => {
         setTimeout(() => {
           const tdTimeTable = document.createElement("td");
@@ -79,17 +84,17 @@ if (musicFestivalButton) {
             tr.appendChild(tdTracks);
 
             tbody.appendChild(tr);
-
           });
         }, 100);
       });
     });
+    setTimeout(() => {
+      generateMusicFestivalPlaylist(topTracks);
+    }, 1000);
   };
 }
 
-
 if (worldForm) {
-
   if (countriesList) {
     for (let code of marketCodes.markets) {
       addOptions(countriesList, countryCodes[code]);
@@ -98,7 +103,6 @@ if (worldForm) {
       addOptions(categoriesList, category);
     }
   }
-  
 
   worldForm.addEventListener("submit", async function (event) {
     event.preventDefault();

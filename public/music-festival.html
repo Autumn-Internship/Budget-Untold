@@ -1,25 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./styling/index.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./styling/index.css" />
     <title>Music Festival | Festival Generator</title>
-</head>
-<body>
+  </head>
+  <body>
     <header>
-        <section class="header-section">
-            <p class="big-p">Hello, <span id="user-name"></span>!</p>
-        </section>
+      <section class="header-section">
+        <p class="big-p">Hello, <span id="user-name"></span>!</p>
+      </section>
     </header>
     <main>
-        <section class="main-section">
-            <h1 id="confirmation-message">Your festival awaits!</h1>
-            <button id="music-festival-button" type="button" class="main-button" onclick="confirmGeneration()">Generate festival</button>
-        </section>
+      <section class="main-section">
+        <h1 id="confirmation-message">Your festival awaits!</h1>
+        <button id="music-festival-button" type="button" class="main-button">
+          Generate festival
+        </button>
+      </section>
+
+      <section>
+        <table id="generatePlaylistArtistandTracks">
+          <thead>
+            <tr id="theadRow"></tr>
+          </thead>
+          <tbody id="tbody"></tbody>
+        </table>
+      </section>
     </main>
     <script type="module" src="./js/index.js"></script>
     <script type="module" src="./js/music-festival.js"></script>
-</body>
+  </body>
 </html>

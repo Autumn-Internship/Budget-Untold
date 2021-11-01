@@ -287,6 +287,10 @@ export const categoryIdList = {
     'Happy Holidays': 'holidays'
 }
 
+export const timeTable = [
+    "10-11", "11-12","12-1","1-2","2-3","3-4","4-5","5-6","6-7","7-8"
+];
+
 async function getMarketCodes() {
     const marketCodes = await fetch('https://api.spotify.com/v1/markets', 
     {'method': 'GET',

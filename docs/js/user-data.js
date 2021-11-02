@@ -1,5 +1,5 @@
 export const authToken = () => { 
-    return JSON.parse(localStorage.getItem('oauth2authcodepkce-state')).accessToken.value;
+    return localStorage.getItem('access_token');
 }
 
 export async function getCurrentUser() {

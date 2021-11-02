@@ -1,27 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./styling/index.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./styling/index.css" />
     <title>Festival Generator</title>
     <script src="./node_modules/@bity/oauth2-auth-code-pkce/index.umd.js"></script>
     <script src="./js/authorization.js"></script>
-    
-</head>
-<body>
+  </head>
+  <body>
     <header>
-        <section class="header-section">
-            <h1 class="main-title">Welcome to Festival Generator!</h1>
-        </section>
+      <section class="header-section">
+        <h1 class="main-title">Welcome to Festival Generator!</h1>
+      </section>
     </header>
     <main>
-        <section class="main-section">
-            <h2 id="sign-in">Sign in to generate your festival</h2>
-            <button aria-describedby="sign-in" onclick="authorize()" type="button" class="main-button">Sign in with Spotify</button>
-        </section>
+      <section class="main-section">
+        <h2 id="sign-in">Sign in to generate your festival</h2>
+        <button
+          aria-describedby="sign-in"
+          onclick="authorize()"
+          type="button"
+          class="main-button"
+        >
+          Sign in with Spotify
+        </button>
+      </section>
     </main>
     <script type="module" src="./js/index.js"></script>
-</body>
+  </body>
 </html>

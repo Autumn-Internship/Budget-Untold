@@ -13,12 +13,26 @@ body {
   font-family: sans-serif;
 }
 
-ul {
+ul, ol {
   padding-inline-start: 0;
 }
 
-.header-section {
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.navbar {
   padding: 16px 0px;
+  display: flex;
+  justify-content: space-between;
+  padding: 24px 40px;
+}
+
+.nav-list {
+  display: flex;
+  gap: 40px;
+  margin: 0 40px;
 }
 
 .main-title {
@@ -119,6 +133,10 @@ li {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.flip-card-front h2 {
+  text-shadow: 0 0 4 rgba(0, 0, 0, 0.4);
 }
 
 #create-own {

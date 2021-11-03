@@ -8,7 +8,8 @@ export async function getCountryPlaylist() {
     let categoryName = data.get('category');
     let countryCode = countryNamesMap.get(countryName);
     let categoryId = categoryIdList[categoryName];
-    let response = await fetch(`https://api.spotify.com/v1/browse/categories/${categoryId}/playlists?country=${countryCode}&limit=1`,
+    let randomNum = Math.floor(Math.random() * 51);
+    let response = await fetch(`https://api.spotify.com/v1/browse/categories/${categoryId}/playlists?country=${countryCode}&limit=50&offset=${randomNum}`,
     {'method':'GET', 
     'headers': {
         'Authorization':`Bearer ${authToken()}`,

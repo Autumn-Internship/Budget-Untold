@@ -76,7 +76,7 @@
         processTokenResponse(data);
         // clear search query params in the url
         window.history.replaceState({}, document.title, '/');
-        window.location.replace('http://127.0.0.1:8080/docs/menu.html');
+        window.location.replace('http://127.0.0.1:8080/menu.html');
       })
       .catch(handleError);
   }

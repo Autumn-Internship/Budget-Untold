@@ -2,14 +2,13 @@ import { authToken } from './user-data.js';
 import { countryNamesMap, categoryIdList } from './data.js';
 import { worldForm } from './index.js';
 
-export async function getCountryPlaylist() {
+export async function getCountryPlaylists() {
     let data = new FormData(worldForm);
     let countryName = data.get('country');
     let categoryName = data.get('category');
     let countryCode = countryNamesMap.get(countryName);
     let categoryId = categoryIdList[categoryName];
-    let randomNum = Math.floor(Math.random() * 51);
-    let response = await fetch(`https://api.spotify.com/v1/browse/categories/${categoryId}/playlists?country=${countryCode}&limit=50&offset=${randomNum}`,
+    let response = await fetch(`https://api.spotify.com/v1/browse/categories/${categoryId}/playlists?country=${countryCode}&limit=50`,
     {'method':'GET', 
     'headers': {
         'Authorization':`Bearer ${authToken()}`,
@@ -30,9 +29,11 @@ export async function followPlaylist(playlistId) {
 }
 
 export async function followCountryPlaylist() {
-    let countryPlaylist = await getCountryPlaylist();
-    let countryPlaylistId = await countryPlaylist.playlists.items[0].id;
-    followPlaylist(countryPlaylistId);
+    let countryPlaylists = await getCountryPlaylists();
+    let totalPlaylists = await countryPlaylists.playlists.items.length;
+    let randomNum = Math.floor(Math.random() * (totalPlaylists + 1));
+    let countryPlaylistId = await countryPlaylists.playlists.items[randomNum].id;
+        await followPlaylist(countryPlaylistId);
 }
 
 export function addOptions(list, valueName) {

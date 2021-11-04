@@ -139,6 +139,23 @@ li {
   text-shadow: 0 0 4 rgba(0, 0, 0, 0.4);
 }
 
+.artist-card {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;width: 280px;
+  height: 240px;
+  background-color: $black;
+  color: white;
+  margin: 48px auto;
+}
+
+.artist-card p {
+  font-size: 24px;
+  text-align: center;
+  margin: 18px 4px;
+  filter: drop-shadow(0px 0px 4px rgba(0, 0, 0, 0.4));
+}
+
 #create-own {
   background-image: url("../images/create-own.jpg");
 }
@@ -230,5 +247,21 @@ li {
   .menu-wrapper {
     grid-template-columns: auto auto auto;
     grid-gap: 40px;
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  .line-up-wrapper {
+    display: grid;
+    width: fit-content;
+    grid-template-columns: auto auto;
+    column-gap: 40px;
+    margin: 0 auto;
+  }
+
+  .artist-card {
+    width: 480px;
+    height: 400px;
+    margin: 48px 0;
   }
 }

@@ -1,16 +1,7 @@
 import { followCountryPlaylist, addOptions } from "./around-world.js";
 import { getUserDisplayName } from "./user-data.js";
-import {
-  categoryIdList,
-  marketCodes,
-  countryCodes,
-  timeTable,
-} from "./data.js";
-import {
-  getTopArtists,
-  getTopTracks,
-  generateMusicFestivalPlaylist,
-} from "./music-festival.js";
+import { categoryIdList, marketCodes, countryCodes, timeTable} from "./data.js";
+import { getTopArtists, getTopTracks, generateMusicFestivalPlaylist } from "./music-festival.js";
 
 const userNameElement = document.getElementById("user-name");
 

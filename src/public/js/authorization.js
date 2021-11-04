@@ -57,7 +57,6 @@
 
   function exchangeToken(code) {
     const code_verifier = localStorage.getItem('code_verifier');
-    console.log("Cod verif e:" +code_verifier);
 
     fetch('https://accounts.spotify.com/api/token', {
       method: 'POST',
@@ -77,7 +76,7 @@
         processTokenResponse(data);
         // clear search query params in the url
         window.history.replaceState({}, document.title, '/');
-        window.location.replace('http://127.0.0.1:8080/docs/menu.html');
+        window.location.replace('http://127.0.0.1:8080/menu.html');
       })
       .catch(handleError);
   }
@@ -97,8 +96,6 @@
   }
 
   function processTokenResponse(data) {
-    console.log(data);
-
     access_token = data.access_token;
     refresh_token = data.refresh_token;
 
@@ -112,33 +109,33 @@
 
 
     // load data of logged in user
-    getUserData();
+  //   getUserData();
   }
 
-  function getUserData() {
-    fetch('https://api.spotify.com/v1/me', {
-      headers: {
-        Authorization: 'Bearer ' + access_token,
-      },
-    })
-      .then(async (response) => {
-        if (response.ok) {
-          return response.json();
-        } else {
-          throw await response.json();
-        }
-      })
-      .then((data) => {
-        console.log(data);
-        // document.getElementById('login').style.display = 'none';
-        // document.getElementById('loggedin').style.display = 'unset';
-        // mainPlaceholder.innerHTML = userProfileTemplate(data);
-      })
-      .catch((error) => {
-        console.error(error);
-        // mainPlaceholder.innerHTML = errorTemplate(error.error);
-      });
-  }
+  // function getUserData() {
+  //   fetch('https://api.spotify.com/v1/me', {
+  //     headers: {
+  //       Authorization: 'Bearer ' + access_token,
+  //     },
+  //   })
+  //     .then(async (response) => {
+  //       if (response.ok) {
+  //         return response.json();
+  //       } else {
+  //         throw await response.json();
+  //       }
+  //     })
+  //     .then((data) => {
+  //       console.log(data);
+  //       // document.getElementById('login').style.display = 'none';
+  //       // document.getElementById('loggedin').style.display = 'unset';
+  //       // mainPlaceholder.innerHTML = userProfileTemplate(data);
+  //     })
+  //     .catch((error) => {
+  //       console.error(error);
+  //       // mainPlaceholder.innerHTML = errorTemplate(error.error);
+  //     });
+  // }
 
  
   // Your client id from your app in the spotify dashboard:
@@ -164,7 +161,7 @@
   } else if (access_token && refresh_token && expires_at) {
     // we are already authorized and reload our tokens from localStorage
 
-    getUserData();
+    //getUserData();
   } 
 
   document

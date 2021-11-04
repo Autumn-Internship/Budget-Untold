@@ -23,3 +23,14 @@ export async function getUserDisplayName() {
     const userDisplayName = userData['display_name'];
     return userDisplayName;
 }
+
+export async function hasPremiumAccount() {
+    let userData = await getCurrentUser();
+    let userProduct = userData.product;
+    console.log(userProduct);
+    if(userProduct === 'premium') {
+        return true
+    } else {
+        return false;
+    }
+}

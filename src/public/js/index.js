@@ -1,11 +1,19 @@
 import { followCountryPlaylist, addOptions } from "./around-world.js";
 import { getUserDisplayName } from "./user-data.js";
-import { categoryIdList, marketCodes, countryCodes, timeTable} from "./data.js";
-import { getTopArtists, getTopTracks, generateMusicFestivalPlaylist } from "./music-festival.js";
+import {
+  categoryIdList,
+  marketCodes,
+  countryCodes,
+  timeTable,
+} from "./data.js";
+import {
+  getTopArtists,
+  getTopTracks,
+  generateMusicFestivalPlaylist,
+} from "./music-festival.js";
+import { getTopAndRelatedArtists, generateCheckboxes } from "./create-own.js";
 
 const userNameElement = document.getElementById("user-name");
-
-const musicFestivalButton = document.getElementById("music-festival-button");
 
 const confirmationElement = document.getElementById("confirmation-message");
 
@@ -13,9 +21,13 @@ export let worldForm = document.getElementById("world-form");
 const countriesList = document.getElementById("countriesList");
 const categoriesList = document.getElementById("categoriesList");
 
+const musicFestivalButton = document.getElementById("music-festival-button");
 const table = document.getElementById("generatePlaylistArtistandTracks");
 const theadRow = document.getElementById("theadRow");
 const tbody = document.getElementById("tbody");
+
+export let makeOwn = document.getElementById("create-own-button");
+export const makeOwnSubmit = document.getElementById("create-own-form");
 
 if (userNameElement) {
   const userName = await getUserDisplayName();
@@ -106,3 +118,32 @@ if (worldForm) {
     }
   });
 }
+
+if (makeOwn) {
+  makeOwn.onclick = () => {
+    try {
+      getTopAndRelatedArtists().then((result) => {
+        generateCheckboxes(result);
+      });
+    } catch {
+      console.log("Sometimes went wrong");
+    }
+  };
+}
+
+makeOwnSubmit.addEventListener("submit", async function (event) {
+  event.preventDefault();
+  makeOwn.disabled = "true";
+
+  const checkedIdArray = [];
+  const checkedArtistsInputs = document.querySelectorAll(
+    'input[type="checkbox"]'
+  );
+
+  for (let i = 0; i < checkedArtistsInputs.length; i++) {
+    if (checkedArtistsInputs[i].checked) {
+      checkedIdArray.push(checkedArtistsInputs[i].id);
+    }
+  }
+  console.log(checkedIdArray); //final Ids selected
+});

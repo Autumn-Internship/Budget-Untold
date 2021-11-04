@@ -31,50 +31,29 @@ if (musicFestivalButton) {
       topTracks = getTopTracks(result.topArtistsArrayId);
       topTracks.then((result) => {
         setTimeout(() => {
-          const tdTimeTable = document.createElement("td");
-          const tdArtists = document.createElement("td");
-          const tdTracks = document.createElement("td");
-
-          const tdTimeTableText = document.createTextNode("Time Table");
-          const tdArtistsText = document.createTextNode("Artists");
-          const tdTracksText = document.createTextNode("Tracks");
-
-          tdTimeTable.appendChild(tdTimeTableText);
-          tdArtists.appendChild(tdArtistsText);
-          tdTracks.appendChild(tdTracksText);
-
-          theadRow.appendChild(tdTimeTable);
-          theadRow.appendChild(tdArtists);
-          theadRow.appendChild(tdTracks);
-
+          const lineUp = document.getElementById("line-up")
+        
           const finalResult = result;
           timeTable.map((hour, index) => {
-            const tr = document.createElement("tr");
-            const tdHours = document.createElement("td");
-            const tdArtists = document.createElement("td");
-            const tdTracks = document.createElement("td");
-
+            const artistCard = document.createElement("div");
+            artistCard.classList.add("artist-card");
+            
+            const artistHour = document.createElement("p");
             const contentHours = document.createTextNode(hour);
-            tdHours.appendChild(contentHours);
+            artistHour.appendChild(contentHours);
 
+            const artistName = document.createElement("p");
             const contentArtists = document.createTextNode(
               finalResult[index].artist
             );
-            tdArtists.appendChild(contentArtists);
+            artistName.appendChild(contentArtists);
+            
+            //const artistImage;
+            //artistCard.style.backgroundImage = url(artistImage);
 
-            finalResult[index].tracks.map((track) => {
-              const contentTrack = document.createTextNode(track);
-              const div = document.createElement("div");
-
-              div.appendChild(contentTrack);
-              tdTracks.appendChild(div);
-            });
-
-            tr.appendChild(tdHours);
-            tr.appendChild(tdArtists);
-            tr.appendChild(tdTracks);
-
-            tbody.appendChild(tr);
+            artistCard.appendChild(artistHour);
+            artistCard.appendChild(artistName);
+            lineUp.appendChild(artistCard);
           });
         }, 100);
       });

@@ -1,6 +1,13 @@
-import { authToken } from "./user-data.js";
-import { getTopArtists } from "./music-festival.js";
-import { makeOwnSubmit } from "./index.js";
+import { authToken, getUserDisplayName } from "./user-data.js";
+import { getTopArtists } from "./spotify-data.js";
+
+const userNameElement = document.getElementById("user-name");
+const confirmationElement = document.getElementById("confirmation-message");
+let makeOwn = document.getElementById("create-own-button");
+const makeOwnSubmit = document.getElementById("create-own-form");
+
+const userName = await getUserDisplayName();
+userNameElement.innerHTML = userName;
 
 async function getRelatedArtists() {
   const topArtistsResponse = await getTopArtists();
@@ -31,7 +38,7 @@ async function getRelatedArtists() {
     relatedArtistsArray.map((artist) => {
       relatedArtistNameFinal.push(artist.name);
       relatedArtistIdFinal.push(artist.id);
-      relatedArtistImageFinal.push(artist.images[0].url);
+      relatedArtistImageFinal.push(artist.images[2].url);
     });
 
     const relatedArtist = await {
@@ -45,7 +52,7 @@ async function getRelatedArtists() {
   return relatedArtistFinal;
 }
 
-export async function getTopAndRelatedArtists() {
+async function getTopAndRelatedArtists() {
   const topAndRelatedArtistsData = [];
   const topArtistsResponse = await getTopArtists();
 
@@ -86,7 +93,7 @@ export async function getTopAndRelatedArtists() {
   return promise;
 }
 
-export async function generateCheckboxes(artists) {
+async function generateCheckboxes(artists) {
   for (let i = 0; i < artists.length; i++) {
     const div = document.createElement("div");
 
@@ -118,3 +125,28 @@ export async function generateCheckboxes(artists) {
 
   makeOwnSubmit.appendChild(buttonSubmit);
 }
+
+try {
+  getTopAndRelatedArtists().then((result) => {
+    generateCheckboxes(result);
+  });
+} catch {
+  console.log("Sometimes went wrong");
+}
+
+makeOwnSubmit.addEventListener("submit", async function (event) {
+  event.preventDefault();
+  makeOwn.disabled = "true";
+
+  const checkedIdArray = [];
+  const checkedArtistsInputs = document.querySelectorAll(
+    'input[type="checkbox"]'
+  );
+
+  for (let i = 0; i < checkedArtistsInputs.length; i++) {
+    if (checkedArtistsInputs[i].checked) {
+      checkedIdArray.push(checkedArtistsInputs[i].id);
+    }
+  }
+  console.log(checkedIdArray); //final Ids selected
+});

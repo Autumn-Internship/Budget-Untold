@@ -1,6 +1,11 @@
-import { authToken } from './user-data.js';
-import { countryNamesMap, categoryIdList } from './data.js';
-import { worldForm } from './index.js';
+import { authToken, getUserDisplayName } from './user-data.js';
+import { countryNamesMap, categoryIdList, marketCodes, countryCodes } from './data.js';
+
+const userNameElement = document.getElementById("user-name");
+const confirmationElement = document.getElementById("confirmation-message");
+
+const userName = await getUserDisplayName();
+userNameElement.innerHTML = userName;
 
 export async function getCountryPlaylists() {
     let data = new FormData(worldForm);
@@ -42,3 +47,24 @@ export function addOptions(list, valueName) {
     list.appendChild(option);
 }
 
+let worldForm = document.getElementById("world-form");
+const countriesList = document.getElementById("countriesList");
+const categoriesList = document.getElementById("categoriesList");
+
+for (let code of marketCodes.markets) {
+    addOptions(countriesList, countryCodes[code]);
+}
+for (let category in categoryIdList) {
+    addOptions(categoriesList, category);
+}
+  
+worldForm.addEventListener("submit", async function (event) {
+    event.preventDefault();
+    try {
+      await followCountryPlaylist();
+      confirmationElement.innerHTML = "Your festival has been created!";
+    } catch {
+      confirmationElement.innerHTML =
+        "Something went wrong. Please try again later.";
+    }
+});

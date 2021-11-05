@@ -1,37 +1,15 @@
-import { authToken } from "./user-data.js";
-import { getUserId } from "./user-data.js";
+import { authToken, getUserId, getUserDisplayName } from "./user-data.js";
+import { timeTable } from "./data.js";
+import { getTopArtists } from "./spotify-data.js";
 
-export async function getTopArtists() {
-  const topArtists = await fetch(
-    "https://api.spotify.com/v1/me/top/artists?limit=10&time_range=long_term",
-    {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${authToken()}`,
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-    }
-  );
-  const topArtistsResponse = await topArtists.json();
-  const topArtistsArrayName = [];
-  const topArtistsArrayId = [];
-  const topArtistsArrayImage = [];
-  topArtistsResponse.items.map((artist) => {
-    topArtistsArrayName.push(artist.name);
-    topArtistsArrayId.push(artist.id);
-    topArtistsArrayImage.push(artist.images[0].url);
-  });
+const userNameElement = document.getElementById("user-name");
+const confirmationElement = document.getElementById("confirmation-message");
+const musicFestivalButton = document.getElementById("music-festival-button");
 
-  const topArtistsObject = await {
-    topArtistsArrayName,
-    topArtistsArrayId,
-    topArtistsArrayImage,
-  };
-  return topArtistsObject;
-}
+const userName = await getUserDisplayName();
+userNameElement.innerHTML = userName;
 
-export async function getTopTracks(artistIdArray) {
+async function getTopTracks(artistIdArray) {
   let arrayTop = [];
 
   artistIdArray.map(async (artistId) => {
@@ -70,7 +48,7 @@ export async function getTopTracks(artistIdArray) {
   return arrayTop;
 }
 
-export async function createPlaylist() {
+async function createPlaylist() {
   let userId = await getUserId();
   const emptyPlaylist = await fetch(
     `https://api.spotify.com/v1/users/${userId}/playlists`,
@@ -93,7 +71,7 @@ export async function createPlaylist() {
   return emptyPlaylistId;
 }
 
-export async function generateMusicFestivalPlaylist(topTracks) {
+async function generateMusicFestivalPlaylist(topTracks) {
   const topTracksForPlaylist = await topTracks;
   const playlistId = await createPlaylist();
 
@@ -121,3 +99,43 @@ export async function generateMusicFestivalPlaylist(topTracks) {
     }
   );
 }
+
+musicFestivalButton.onclick = () => {
+  let topTracks;
+  confirmationElement.innerHTML = "Your festival has been created!";
+  const topArtists = getTopArtists();
+  topArtists.then((result) => {
+    topTracks = getTopTracks(result.topArtistsArrayId);
+    topTracks.then((result) => {
+      setTimeout(() => {
+        const lineUp = document.getElementById("line-up")
+      
+        const finalResult = result;
+        timeTable.map((hour, index) => {
+          const artistCard = document.createElement("div");
+          artistCard.classList.add("artist-card");
+          
+          const artistHour = document.createElement("p");
+          const contentHours = document.createTextNode(hour);
+          artistHour.appendChild(contentHours);
+
+          const artistName = document.createElement("p");
+          const contentArtists = document.createTextNode(
+            finalResult[index].artist
+          );
+          artistName.appendChild(contentArtists);
+          
+          //const artistImage;
+          //artistCard.style.backgroundImage = url(artistImage);
+
+          artistCard.appendChild(artistHour);
+          artistCard.appendChild(artistName);
+          lineUp.appendChild(artistCard);
+        });
+      }, 100);
+    });
+  });
+  setTimeout(() => {
+    generateMusicFestivalPlaylist(topTracks);
+  }, 1000);
+};

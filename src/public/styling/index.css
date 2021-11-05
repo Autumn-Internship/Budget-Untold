@@ -19,14 +19,13 @@ a {
 }
 
 .navbar {
-  padding: 16px 0px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  padding: 24px 40px;
+  padding: 16px 16px;
 }
 
 .nav-list {
@@ -34,7 +33,7 @@ a {
   display: -ms-flexbox;
   display: flex;
   gap: 40px;
-  margin: 0 40px;
+  margin: 0 8px;
 }
 
 .main-title {
@@ -59,13 +58,13 @@ a {
 }
 
 .big-p {
-  font-size: 1.5rem;
+  font-size: 1.15rem;
   font-weight: 500;
   margin: 0;
 }
 
 .medium-p {
-  font-size: 1.25rem;
+  font-size: 1rem;
   font-weight: 500;
   margin: 0;
 }
@@ -311,6 +310,22 @@ li {
     width: 480px;
     height: 400px;
     margin: 48px 0;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .navbar {
+    padding: 24px 40px;
+  }
+  .big-p {
+    font-size: 1.5rem;
+  }
+  .medium-p {
+    font-size: 1.25rem;
+  }
+  .nav-list {
+    gap: 40px;
+    margin: 0 40px;
   }
 }
 /*# sourceMappingURL=index.css.map */

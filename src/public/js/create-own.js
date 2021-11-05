@@ -1,5 +1,5 @@
-import { authToken, getUserDisplayName } from "./user-data.js";
-import { getTopArtists } from "./spotify-data.js";
+import { authToken, getUserDisplayName, getUserId } from "./user-data.js";
+import { getTopArtists, getTopArtistsTracks, getEmptyPlaylistId, addTracksToPlaylist } from "./spotify-requests.js";
 
 const userNameElement = document.getElementById("user-name");
 const confirmationElement = document.getElementById("confirmation-message");
@@ -126,27 +126,46 @@ async function generateCheckboxes(artists) {
   makeOwnSubmit.appendChild(buttonSubmit);
 }
 
-try {
-  getTopAndRelatedArtists().then((result) => {
-    generateCheckboxes(result);
-  });
-} catch {
-  console.log("Sometimes went wrong");
+function renderArtists() {
+  try {
+    getTopAndRelatedArtists().then((result) => {
+      generateCheckboxes(result);
+    });
+  } catch {
+    console.log("Sometimes went wrong");
+  }
 }
 
 makeOwnSubmit.addEventListener("submit", async function (event) {
   event.preventDefault();
   makeOwn.disabled = "true";
 
-  const checkedIdArray = [];
+  const checkedIdsArray = [];
   const checkedArtistsInputs = document.querySelectorAll(
     'input[type="checkbox"]'
   );
 
   for (let i = 0; i < checkedArtistsInputs.length; i++) {
     if (checkedArtistsInputs[i].checked) {
-      checkedIdArray.push(checkedArtistsInputs[i].id);
+      checkedIdsArray.push(checkedArtistsInputs[i].id);
     }
   }
-  console.log(checkedIdArray); //final Ids selected
+
+  async function generateMakeOwnPlaylist() {
+    const playlistId = await getEmptyPlaylistId("My playlist", "My favorite artists' top tracks");
+    let tracksUris = [];
+    for(let artistId of checkedIdsArray) {
+      let topTracksObj = await getTopArtistsTracks(artistId);
+      let topTracks = topTracksObj.tracks;
+      for(let track of topTracks) {
+        tracksUris.push(track.uri);
+      }
+    }
+    addTracksToPlaylist(tracksUris, playlistId);
+  }
+  await generateMakeOwnPlaylist();
 });
+
+renderArtists();
+
+

@@ -1,6 +1,6 @@
-import { authToken, getUserId, getUserDisplayName } from "./user-data.js";
+import { getUserDisplayName } from "./user-data.js";
 import { timeTable } from "./data.js";
-import { getTopArtists } from "./spotify-data.js";
+import { getTopArtists, getEmptyPlaylistId, getTopArtistsTracks, addTracksToPlaylist } from "./spotify-requests.js";
 
 const userNameElement = document.getElementById("user-name");
 const confirmationElement = document.getElementById("confirmation-message");
@@ -9,27 +9,15 @@ const musicFestivalButton = document.getElementById("music-festival-button");
 const userName = await getUserDisplayName();
 userNameElement.innerHTML = userName;
 
-async function getTopTracks(artistIdArray) {
+async function getTopTracksObj(artistIdsArray) {
   let arrayTop = [];
 
-  artistIdArray.map(async (artistId) => {
-    const topTracks = await fetch(
-      `https://api.spotify.com/v1/artists/${artistId}/top-tracks?market=RO`,
-      {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${authToken()}`,
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      }
-    );
-
+  artistIdsArray.map(async (artistId) => {
     let trackArray = [];
     let uriArray = [];
-    const topTracksResponse = await topTracks.json();
+    const topTracks = await getTopArtistsTracks(artistId);
 
-    topTracksResponse.tracks.map((track) => {
+    topTracks.tracks.map((track) => {
       trackArray.push(track.name);
       uriArray.push(track.uri);
     });
@@ -38,7 +26,7 @@ async function getTopTracks(artistIdArray) {
     uriArray = uriArray.slice(0, 5).reverse();
 
     const finalTracksAndArtists = {
-      artist: topTracksResponse.tracks[0].album.artists[0].name,
+      artist: topTracks.tracks[0].album.artists[0].name,
       tracks: trackArray,
       uri: uriArray,
     };
@@ -48,32 +36,9 @@ async function getTopTracks(artistIdArray) {
   return arrayTop;
 }
 
-async function createPlaylist() {
-  let userId = await getUserId();
-  const emptyPlaylist = await fetch(
-    `https://api.spotify.com/v1/users/${userId}/playlists`,
-    {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${authToken()}`,
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name: "Music Festival",
-        description: "The coolest playlist",
-        public: false,
-      }),
-    }
-  );
-  const emptyPlaylistResponse = await emptyPlaylist.json();
-  const emptyPlaylistId = emptyPlaylistResponse.id;
-  return emptyPlaylistId;
-}
-
 async function generateMusicFestivalPlaylist(topTracks) {
   const topTracksForPlaylist = await topTracks;
-  const playlistId = await createPlaylist();
+  const playlistId = await getEmptyPlaylistId("Music Festival", "The coolest playlist");
 
   const uriFinalArray = [];
   topTracksForPlaylist.map((finalTracksAndArtists) => {
@@ -82,22 +47,10 @@ async function generateMusicFestivalPlaylist(topTracks) {
     });
   });
 
-  let resultUri = "";
-  uriFinalArray.map((element) => (resultUri += element + ","));
-  resultUri = resultUri.slice(0, resultUri.length - 1);
-  let encodedUri = encodeURIComponent(resultUri);
+  let resultUri = [];
+  uriFinalArray.map((element) => (resultUri.push(element)));
 
-  const musicPlaylist = await fetch(
-    `https://api.spotify.com/v1/playlists/${playlistId}/tracks?uris=${encodedUri}`,
-    {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${authToken()}`,
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-    }
-  );
+  addTracksToPlaylist(resultUri, playlistId);
 }
 
 musicFestivalButton.onclick = () => {
@@ -105,7 +58,7 @@ musicFestivalButton.onclick = () => {
   confirmationElement.innerHTML = "Your festival has been created!";
   const topArtists = getTopArtists();
   topArtists.then((result) => {
-    topTracks = getTopTracks(result.topArtistsArrayId);
+    topTracks = getTopTracksObj(result.topArtistsArrayId);
     topTracks.then((result) => {
       setTimeout(() => {
         const lineUp = document.getElementById("line-up")

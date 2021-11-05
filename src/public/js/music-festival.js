@@ -16,16 +16,17 @@ export async function getTopArtists() {
   const topArtistsResponse = await topArtists.json();
   const topArtistsArrayName = [];
   const topArtistsArrayId = [];
-  const topArtistsImg = [];
+  const topArtistsArrayImage = [];
   topArtistsResponse.items.map((artist) => {
     topArtistsArrayName.push(artist.name);
     topArtistsArrayId.push(artist.id);
-    topArtistsImg.push(artist.images[0].url);
+    topArtistsArrayImage.push(artist.images[0].url);
   });
+
   const topArtistsObject = await {
     topArtistsArrayName,
     topArtistsArrayId,
-    topArtistsImg,
+    topArtistsArrayImage,
   };
   return topArtistsObject;
 }

@@ -5,7 +5,7 @@ const PlaylistCollectionsSchema = new mongoose.Schema(
         userId: {
             type: String,
             required: true,
-            unique: true,
+            sparse: true,
         },
         playlists: {
             type: [

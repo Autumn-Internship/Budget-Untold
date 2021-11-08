@@ -36,6 +36,19 @@ a {
   margin: 0 8px;
 }
 
+.burger{
+  display:none;
+  cursor:pointer;
+}
+
+.burger div {
+  width:25px;
+  height:3px;
+  background-color: #1aa149;
+  margin:3px;
+
+}
+
 .main-title {
   margin: 32px auto;
   width: -webkit-fit-content;
@@ -173,8 +186,8 @@ li {
   -webkit-box-align: end;
       -ms-flex-align: end;
           align-items: flex-end;
-  width: 280px;
-  height: 240px;
+  width: 320px;
+  height: 290px;
   background-color: #191414;
   color: white;
   margin: 48px auto;
@@ -294,7 +307,7 @@ li {
 }
 
 @media only screen and (min-width: 1024px) {
-  .line-up-wrapper {
+  .line-up-wrapper, .playlist-list-wrapper {
     display: -ms-grid;
     display: grid;
     width: -webkit-fit-content;
@@ -307,8 +320,8 @@ li {
     margin: 0 auto;
   }
   .artist-card {
-    width: 480px;
-    height: 400px;
+    width: 320px;
+    height: 320px;
     margin: 48px 0;
   }
 }
@@ -327,5 +340,51 @@ li {
     gap: 40px;
     margin: 0 40px;
   }
+}
+
+@media only screen and (max-width: 480px){
+  body{
+    overflow-x: hidden;
+  }
+  .nav-list{
+    position:absolute;
+    right:0px;
+    height:92vh;
+    top:8vh;
+    margin:0px;
+    background-color: #1aa149;
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+    width: 50px;
+    transform: translateX(100%);
+    transition: transform 0.5s ease-in;
+  }
+
+  .nav-list li{
+    opacity:0;
+  }
+
+  .burger{
+    display: block;
+  }
+
+  .nav-active{
+    transform:translateX(0%);
+  }
+
+@keyframes navListFade {
+  from{
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to{
+    opacity: 1;
+    transform: translateX(0px);
+
+  }
+  
+}
+
 }
 /*# sourceMappingURL=index.css.map */

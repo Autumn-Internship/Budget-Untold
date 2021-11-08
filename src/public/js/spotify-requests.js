@@ -58,7 +58,7 @@ export async function getTopArtists() {
   topArtistsResponse.items.map((artist) => {
     topArtistsArrayName.push(artist.name);
     topArtistsArrayId.push(artist.id);
-    topArtistsArrayImage.push(artist.images[0].url);
+    topArtistsArrayImage.push(artist.images[1].url);
   });
 
   const topArtistsObject = await {
@@ -82,4 +82,27 @@ export async function getTopArtistsTracks(artistId) {
     }
   );
   return response.json();
+}
+
+export async function getPlaylistDetails(playlistId) {
+  const response = await fetch(
+    `https://api.spotify.com/v1/playlists/${playlistId}`,
+    {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${authToken()}`,
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  const playlistIdResponse = await response.json();
+  const playlistName= playlistIdResponse.name;
+  //const playlistImage=playlistIdResponse.images[1].url;
+
+  const playlistObject = {
+    playlistName, 
+   // playlistImage,
+}
+return playlistObject;
 }

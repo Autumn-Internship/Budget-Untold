@@ -10,8 +10,8 @@ import { patchPlaylistCollection } from "./playlists-list.js";
 
 const userNameElement = document.getElementById("user-name");
 const confirmationElement = document.getElementById("confirmation-message");
-let makeOwn = document.getElementById("create-own-button");
 const makeOwnSubmit = document.getElementById("create-own-form");
+const formInnerContent = document.getElementById("create-own-form-inner");
 
 const userName = await getUserDisplayName();
 userNameElement.innerHTML = userName;
@@ -102,26 +102,34 @@ async function getTopAndRelatedArtists() {
 
 async function generateCheckboxes(artists) {
   for (let i = 0; i < artists.length; i++) {
-    const div = document.createElement("div");
+    const label = document.createElement("label");
 
     let checkbox = document.createElement("input");
     checkbox.type = "checkbox";
+
+    let customCheckbox = document.createElement("span");
 
     let randomNumber = Math.floor(Math.random() * 2);
     checkbox.id = artists[i].artistObjectId[randomNumber];
     checkbox.name = artists[i].artistObjectName[randomNumber];
 
-    let image = new Image(100, 100);
+    let image = new Image(200, 200);
     image.src = artists[i].artistObjectUrl[randomNumber];
 
-    const artistName = document.createTextNode(
-      artists[i].artistObjectName[randomNumber]
-    );
-    div.appendChild(image);
-    div.appendChild(artistName);
-    div.appendChild(checkbox);
+    const artistName = document.createElement("span");
+    artistName.innerHTML = artists[i].artistObjectName[randomNumber];
+    artistName.className = "checkbox-artist-name";
 
-    makeOwnSubmit.appendChild(div);
+    checkbox.className = "default-checkbox";
+    customCheckbox.className = "custom-checkbox";
+    label.className = "checkbox-label";
+    
+    label.appendChild(checkbox);
+    label.appendChild(customCheckbox)
+    customCheckbox.appendChild(image);
+    label.appendChild(artistName);
+
+    formInnerContent.appendChild(label);
   }
 
   let buttonSubmit = document.createElement("button");
@@ -145,7 +153,6 @@ function renderArtists() {
 
 makeOwnSubmit.addEventListener("submit", async function (event) {
   event.preventDefault();
-  makeOwn.disabled = "true";
 
   const checkedIdsArray = [];
   const checkedArtistsInputs = document.querySelectorAll(

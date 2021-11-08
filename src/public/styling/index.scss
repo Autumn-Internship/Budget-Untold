@@ -3,14 +3,49 @@ $main-color-light: #4fb874;
 $main-color-dark: #1aa149;
 $white: #ffffff;
 $black: #191414;
+$text-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
 
 * {
   box-sizing: border-box;
 }
 
+html {
+  min-height: 100vh;
+  max-height: fit-content;
+}
+
 body {
-  color: $black;
+  color: $white;
   font-family: sans-serif;
+  background-color: $black;
+}
+
+body:not(#home, #sign-in-bg) {
+  color: $white;
+  font-family: sans-serif;
+  background: radial-gradient(99.13% 183.21% at 99.13% 0%, #0C4D23 0%, #191414 54.74%);
+  background-repeat: no-repeat;
+  background-color: $black;
+}
+
+#sign-in-bg {
+  background-image: url("../images/sign-in-bg-img.jpg");
+  box-shadow: inset 0 0 0 2000px #1914147a;
+  background-color: $black;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  margin: 0;
+  min-height: 100vh;
+  max-height: fit-content;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#sign-in-bg h2, #sign-in-bg h1 {
+  text-shadow: $text-shadow;
+  text-align: center;
 }
 
 ul, ol {
@@ -38,6 +73,7 @@ a {
   margin: 32px auto;
   width: fit-content;
   font-size: 2rem;
+  text-align: center;
 }
 
 .main-section {
@@ -59,6 +95,7 @@ a {
 }
 
 .main-button {
+  display: block;
   padding: 16px 24px;
   margin: 24px 0px;
   font-size: 1rem;
@@ -99,16 +136,16 @@ li {
 }
 
 .menu-wrapper {
-  margin-top: 88px;
+  margin-top: 40px;
   display: grid;
   grid-template-columns: auto;
-  grid-gap: 32px;
+  grid-gap: 16px;
 }
 
 .flip-card {
   display: block;
-  width: 280px;
-  height: 280px;
+  width: 240px;
+  height: 240px;
   color: white;
   text-decoration: none;
   background-color: transparent;
@@ -132,10 +169,11 @@ li {
   display: flex;
   align-items: center;
   justify-content: center;
+  border-radius: 6px;
 }
 
 .flip-card-front h2 {
-  text-shadow: 0 0 4 rgba(0, 0, 0, 0.4);
+  text-shadow: $text-shadow;
 }
 
 .artist-card {
@@ -155,24 +193,23 @@ li {
   filter: drop-shadow(0px 0px 4px rgba(0, 0, 0, 0.4));
 }
 
-#create-own {
-  background-image: url("../images/create-own.jpg");
-}
-
-#music-festival {
-  background-image: url("../images/music-festival.jpg");
-}
-
-#around-world {
-  background-image: url("../images/around-world.jpg");
+#home {
+  background-image: url("../images/home-mobile-bg.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-color: $black;
+  margin: 0;
+  min-height: 100vh;
+  max-height: fit-content;
 }
 
 .flip-card-front {
-  background-color: $main-color;
+  background-color: $black;
 }
 
 .flip-card-back {
-  background-color: $black;
+  background-color: $main-color;
   transform: rotateY(-180deg);
 }
 
@@ -190,8 +227,26 @@ li {
   flex-direction: column;
 }
 
-.form * {
+.form > * {
   width: 100%;
+}
+
+#create-own-form-button {
+  width: min-content;
+  margin: 20px auto;
+}
+
+#create-own-form-inner {
+  display: grid;
+  grid-template-columns: auto;
+  grid-gap: 10px;
+  width: fit-content;
+}
+
+.form.form-desktop {
+  width: 280px;
+  margin-top: 24px;
+  align-items: center;
 }
 
 .label {
@@ -211,58 +266,66 @@ li {
   color: red;
 }
 
+.checkbox-label {
+  display: block;
+  position: relative;
+  margin-bottom: 16px;
+  cursor: pointer;
+  font-size: 22px;
+  user-select: none;
+  width: 200px;
+  height: 200px;
+}
+
+.custom-checkbox {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 200px;
+  width: 200px;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.custom-checkbox::after {
+  display: block;
+  content: "";
+  position: absolute;
+  right: 14px;
+  top: 14px;
+  width: 26px;
+  height: 26px;
+  background-image: url("../images/checkbox-unchecked.png");
+}
+
+.checkbox-artist-name {
+  position: absolute;
+  bottom: 0;
+  padding: 8px;
+  width: 100%;
+  text-align: center;
+  text-shadow: $text-shadow;
+  backdrop-filter: brightness(0.5);
+}
+
+.default-checkbox {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.checkbox-label:hover .custom-checkbox img {
+  filter: brightness(0.5);
+}
+
+.default-checkbox:checked ~ .custom-checkbox::after {
+  background-image: url("../images/checkbox-checked.png");
+}
+
 #confirmation-message {
   text-align: center;
-}
-
-#generatePlaylistArtistandTracks {
-  width: 100%;
-  margin: auto;
-  tr {
-    width: 100%;
-  }
-  th,
-  td {
-    box-sizing: border-box;
-    padding: 15px;
-  }
-  thead {
-    th {
-      background: #000;
-      color: #fff;
-      text-align: left;
-    }
-  }
-
-  tbody {
-    text-align: left;
-    th {
-      background: #eee;
-    }
-  }
-}
-
-@media only screen and (min-width: 1024px) {
-  .menu-wrapper {
-    grid-template-columns: auto auto auto;
-    grid-gap: 40px;
-  }
-}
-
-@media only screen and (min-width: 1024px) {
-  .line-up-wrapper, .playlist-list-wrapper {
-    display: grid;
-    width: fit-content;
-    grid-template-columns: auto auto;
-    column-gap: 40px;
-    margin: 0 auto;
-  }
-
-  .artist-card {
-    width: 480px;
-    height: 400px;
-    margin: 48px 0;
-  }
 }
 
 @media only screen and (min-width: 768px) {
@@ -282,4 +345,59 @@ li {
     gap: 40px;
     margin: 0 40px;
   }
+
+  .burger {
+    display: none;
+  }
+
+  .form.form-desktop {
+    width: 640px;
+    margin: 24px;
+  }
+
+  #create-own-form-inner {
+    grid-template-columns: auto auto auto;
+  }
 }
+
+@media only screen and (min-width: 1024px) {
+  #home {
+    background-image: url("../images/home-bg.jpg");
+  }
+  
+  .menu-wrapper {
+    grid-template-columns: auto auto auto auto;
+    margin-top: 88px;
+    grid-gap: 40px;
+  }
+  
+  .flip-card {
+    width: 280px;
+    height: 280px;
+  }
+  
+  .line-up-wrapper, .playlist-list-wrapper {
+    display: grid;
+    width: fit-content;
+    grid-template-columns: auto auto;
+    column-gap: 40px;
+    margin: 0 auto;
+  }
+
+  .artist-card {
+    width: 480px;
+    height: 400px;
+    margin: 48px 0;
+  }
+
+  .form.form-desktop {
+    width: 800px;
+    margin: 40px;
+  }
+
+  #create-own-form-inner {
+    grid-template-columns: auto auto auto auto;
+    grid-gap: 10px;
+  }
+}
+

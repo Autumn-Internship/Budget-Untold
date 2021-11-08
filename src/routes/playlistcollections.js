@@ -31,6 +31,23 @@ router.patch("/updateCollection/:userId", async (req, res) => {
   }
 });
 
+router.put("/upsert/:userId", async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const playlistId = req.query.playlistId;
+    const playlistType = req.query.playlistType;
+    const playlistCollectionUpdated = await PlaylistCollection.findOneAndUpdate(
+      {userId: userId},
+      { $push: { playlists: { id: playlistId, playlistType: playlistType } } },
+      { new: true,
+        upsert: true }
+    );
+    res.status(200).json({ success: true, value: playlistCollectionUpdated });
+  } catch (error) {
+    console.log("ERROR IS:", error);
+  }
+});
+
 router.get("/", async (req, res) => {
   try {
     const playlistCollections = await PlaylistCollection.find();
@@ -40,11 +57,11 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.delete("/deleteCollection/:playlistCollectionId", async (req, res) => {
+router.delete("/deleteCollection/:userId", async (req, res) => {
   try {
-    const playlistCollectionId = req.params.playlistCollectionId;
-    await PlaylistCollection.deleteOne({ userId: playlistCollectionId });
-    res.status(204).json({ value: playlistCollectionId });
+    const userId = req.params.userId;
+    await PlaylistCollection.deleteOne({ userId: userId });
+    res.status(204).json({ value: userId });
   } catch (error) {
     console.log("ERROR IS:", error);
   }
@@ -62,14 +79,13 @@ router.get("/:userId", async (req, res) => {
   }
 });
 
-router.patch("/updateCollectionSlice/:userId", async (req, res) => {
+router.patch("/removePlaylist/:userId", async (req, res) => {
   try {
     const userId = req.params.userId;
     const playlistId = req.query.playlistId;
-    const playlistType = req.query.playlistType;
     const playlistCollectionUpdated = await PlaylistCollection.updateOne(
       { userId: userId },
-      { $slice: { playlists: { id: playlistId, playlistType: playlistType } } }
+      { $pull: { playlists: { id: playlistId } } }
     );
     res.status(204).json({ success: true, value: playlistCollectionUpdated });
   } catch (error) {

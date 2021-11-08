@@ -6,15 +6,11 @@ import {
   addTracksToPlaylist,
 } from "./spotify-requests.js";
 
-import { patchPlaylistCollection } from "./playlists-list.js";
+import { upsertPlaylistCollection } from "./playlists-list.js";
 
-const userNameElement = document.getElementById("user-name");
 const confirmationElement = document.getElementById("confirmation-message");
 const makeOwnSubmit = document.getElementById("create-own-form");
 const formInnerContent = document.getElementById("create-own-form-inner");
-
-const userName = await getUserDisplayName();
-userNameElement.innerHTML = userName;
 
 async function getRelatedArtists() {
   const topArtistsResponse = await getTopArtists();
@@ -184,7 +180,7 @@ makeOwnSubmit.addEventListener("submit", async function (event) {
 
   const playlistId = await generateMakeOwnPlaylist();
   const userId = await getUserId();
-  await patchPlaylistCollection(userId, playlistId, "create-own-festival");
+  await upsertPlaylistCollection(userId, playlistId, "create-own-festival");
 });
 
 renderArtists();

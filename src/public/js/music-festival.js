@@ -6,14 +6,10 @@ import {
   getTopArtistsTracks,
   addTracksToPlaylist,
 } from "./spotify-requests.js";
-import { postPlaylistCollection } from "./playlists-list.js";
+import { upsertPlaylistCollection } from "./playlists-list.js";
 
-const userNameElement = document.getElementById("user-name");
 const confirmationElement = document.getElementById("confirmation-message");
 const musicFestivalButton = document.getElementById("music-festival-button");
-
-const userName = await getUserDisplayName();
-userNameElement.innerHTML = userName;
 
 async function getTopTracksObj(artistIdsArray) {
   let arrayTop = [];
@@ -105,6 +101,6 @@ musicFestivalButton.onclick = () => {
     const playlistId = await generateMusicFestivalPlaylist(topTracks);
     console.log("Userid:", userId);
     console.log("playid:", playlistId);
-    postPlaylistCollection(userId, playlistId, "music-festival");
+    upsertPlaylistCollection(userId, playlistId, "music-festival");
   }, 1000);
 };

@@ -6,10 +6,7 @@ import {
 
 import{getPlaylistDetails} from "./spotify-requests.js";
 
-const userNameElement = document.getElementById("user-name");
-const userName = await getUserDisplayName();
 const userId = await getUserId();
-userNameElement.innerHTML = userName;
 
 hasPremiumAccount();
 
@@ -33,55 +30,27 @@ export async function postPlaylistCollection(userId, playlistId, playlistType) {
         ],
       }),
     });
-    console.log("Yaay!");
   } catch {
     console.log("Didn't work :(");
   }
 }
 
-export async function patchPlaylistCollection(
-  userId,
-  playlistId,
-  playlistType
-) {
+export async function upsertPlaylistCollection( userId, playlistId, playlistType) {
   try {
     await fetch(
-      `http://127.0.0.1:8080/playlists/updateCollection/${userId}?playlistId=${playlistId}&playlistType=${playlistType}`,
+      `http://127.0.0.1:8080/playlists/upsert/${userId}?playlistId=${playlistId}&playlistType=${playlistType}`,
       {
-        method: "PATCH",
+        method: "PUT",
         headers: {
           Accept: "*/*",
           "Content-Type": "application/json",
         },
       }
     );
-    console.log("Yaay!");
-  } catch {
-    console.log("Didn't work :(");
+  } catch(err) {
+    console.log(err);
   }
 }
-
-export async function patchSlicePlaylistCollection(
-    userId,
-    playlistId,
-    playlistType
-  ) {
-    try {
-      await fetch(
-        `http://127.0.0.1:8080/playlists/updateCollectionSlice/${userId}?playlistId=${playlistId}&playlistType=${playlistType}`,
-        {
-          method: "PATCH",
-          headers: {
-            Accept: "*/*",
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      console.log("Yaay!");
-    } catch {
-      console.log("Didn't work :(");
-    }
-  }
 
 export async function getUserPlaylists(userId) {
   try {
@@ -92,53 +61,61 @@ export async function getUserPlaylists(userId) {
         "Content-Type": "application/json",
       },
     });
-    console.log("Yaay!");
     const showId = await response.json();
 
     let userPlaylistsIds = showId.value.map((result) => result.id);
     let userPlayliststype= showId.value.map((result) => result.playlistType);
 
     return userPlaylistsIds;
-  } catch {
-    console.log("Didn't work :(");
+  } catch(err) {
+    console.log(err);
+  }
+}
+
+export async function removePlaylist(userId, playlistId) {
+  try {
+    await fetch(
+      `http://127.0.0.1:8080/playlists/removePlaylist/${userId}?playlistId=${playlistId}`,
+      {
+        method: "PATCH",
+        headers: {
+          Accept: "*/*",
+          "Content-Type": "application/json",
+        },
+      }
+    );
+  } catch(err) {
+    console.log(err);
   }
 }
 
 async function showPlaylists(userPlaylists){
+    const playlistDetails= await getPlaylistDetails(userPlaylists);
+    const playlistList = document.getElementById("playlist-list");
 
-        const playlistDetails= await getPlaylistDetails(userPlaylists);
-        console.log("aici:", playlistDetails);
-        const playlistList = document.getElementById("playlist-list");
+    const playlistCard = document.createElement("div");
+    playlistCard.classList.add("artist-card");
 
-        const playlistCard = document.createElement("div");
-        playlistCard.classList.add("artist-card");
+    const playlistName = document.createElement("p");
+    const contentPlaylistName = document.createTextNode(playlistDetails.playlistName);
 
-        const playlistName = document.createElement("p");
-        const contentPlaylistName = document.createTextNode(playlistDetails.playlistName);
+    //const playlistImage = playlistDetails.playlistImage;
+    //playlistCard.style.backgroundImage = "url(" + playlistImage + ")";
 
-        //const playlistImage = playlistDetails.playlistImage;
-        //playlistCard.style.backgroundImage = "url(" + playlistImage + ")";
-
-        playlistName.appendChild(contentPlaylistName);
-        playlistCard.appendChild(playlistName);
-        playlistList.appendChild(playlistCard);
-      
-
+    playlistName.appendChild(contentPlaylistName);
+    playlistCard.appendChild(playlistName);
+    playlistList.appendChild(playlistCard);
 }
 
-
-if (seeHistoy) {
-  seeHistoy.onclick = async () => {
-    try {
-   
-      const userPlaylists = await getUserPlaylists(userId);
-      
-      for (let i = 0; i < userPlaylists.length; i++) {
-      await showPlaylists(userPlaylists[i]);}
-
-    } catch {
-      console.log("Sometimes went wrong");
-    }
-  };
-}
+seeHistoy.onclick = async () => {
+  try {
+    const userPlaylists = await getUserPlaylists(userId);
+    console.log(userPlaylists);
+    
+    for (let i = 0; i < userPlaylists.length; i++) {
+    await showPlaylists(userPlaylists[i]);}
+  } catch {
+    console.log("Sometimes went wrong");
+  }
+};
 

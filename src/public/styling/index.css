@@ -3,9 +3,48 @@
           box-sizing: border-box;
 }
 
+html {
+  height: 100%;
+}
+
 body {
-  color: #191414;
+  color: #ffffff;
   font-family: sans-serif;
+  background-color: #191414;
+}
+
+body:not(#home, #sign-in-bg) {
+  color: #ffffff;
+  font-family: sans-serif;
+  background: radial-gradient(99.13% 183.21% at 99.13% 0%, #0C4D23 0%, #191414 54.74%);
+  background-repeat: no-repeat;
+  background-color: #191414;
+}
+
+#sign-in-bg {
+  background-image: url("../images/sign-in-bg-img.jpg");
+  -webkit-box-shadow: inset 0 0 0 2000px #1914147a;
+          box-shadow: inset 0 0 0 2000px #1914147a;
+  background-color: #191414;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  margin: 0;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+#sign-in-bg h2, #sign-in-bg h1 {
+  text-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
 }
 
 ul, ol {
@@ -70,6 +109,7 @@ a {
 }
 
 .main-button {
+  display: block;
   padding: 16px 24px;
   margin: 24px 0px;
   font-size: 1rem;
@@ -157,10 +197,11 @@ li {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  border-radius: 6px;
 }
 
 .flip-card-front h2 {
-  text-shadow: 0 0 4 rgba(0, 0, 0, 0.4);
+  text-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
 }
 
 .artist-card {
@@ -188,24 +229,22 @@ li {
           filter: drop-shadow(0px 0px 4px rgba(0, 0, 0, 0.4));
 }
 
-#create-own {
-  background-image: url("../images/create-own.jpg");
-}
-
-#music-festival {
-  background-image: url("../images/music-festival.jpg");
-}
-
-#around-world {
-  background-image: url("../images/around-world.jpg");
+#home {
+  background-image: url("../images/home-bg.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-color: #191414;
+  margin: 0;
+  height: 100%;
 }
 
 .flip-card-front {
-  background-color: #1db954;
+  background-color: #191414;
 }
 
 .flip-card-back {
-  background-color: #191414;
+  background-color: #1db954;
   -webkit-transform: rotateY(-180deg);
           transform: rotateY(-180deg);
 }
@@ -230,8 +269,28 @@ li {
           flex-direction: column;
 }
 
-.form * {
+.form > * {
   width: 100%;
+}
+
+#create-own-form-button {
+  width: -webkit-min-content;
+  width: -moz-min-content;
+  width: min-content;
+  margin: 20px auto;
+}
+
+#create-own-form-inner {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: auto auto auto auto;
+      grid-template-columns: auto auto auto auto;
+  grid-gap: 20px;
+}
+
+.form.form-desktop {
+  width: 800px;
+  margin: 40px;
 }
 
 .label {
@@ -249,6 +308,58 @@ li {
 .required::after {
   content: "*";
   color: red;
+}
+
+.checkbox-label {
+  display: block;
+  position: relative;
+  margin-bottom: 16px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  width: 200px;
+  height: 200px;
+}
+
+.custom-checkbox {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 200px;
+  width: 200px;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.checkbox-artist-name {
+  position: absolute;
+  bottom: 0;
+  padding: 8px;
+  width: 100%;
+  text-align: center;
+  text-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
+  -webkit-backdrop-filter: brightness(0.5);
+          backdrop-filter: brightness(0.5);
+}
+
+.default-checkbox {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.checkbox-label:hover .custom-checkbox {
+  -webkit-filter: brightness(0.5);
+          filter: brightness(0.5);
+}
+
+.default-checkbox:checked ~ .custom-checkbox {
+  border: 1px solid white;
 }
 
 #confirmation-message {

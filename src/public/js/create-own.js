@@ -10,7 +10,6 @@ import { patchPlaylistCollection } from "./playlists-list.js";
 
 const userNameElement = document.getElementById("user-name");
 const confirmationElement = document.getElementById("confirmation-message");
-let makeOwn = document.getElementById("create-own-button");
 const makeOwnSubmit = document.getElementById("create-own-form");
 const formInnerContent = document.getElementById("create-own-form-inner");
 
@@ -117,10 +116,6 @@ async function generateCheckboxes(artists) {
     let image = new Image(200, 200);
     image.src = artists[i].artistObjectUrl[randomNumber];
 
-    // const artistName = document.createTextNode(
-    //   artists[i].artistObjectName[randomNumber]
-    // );
-
     const artistName = document.createElement("span");
     artistName.innerHTML = artists[i].artistObjectName[randomNumber];
     artistName.className = "checkbox-artist-name";
@@ -158,7 +153,6 @@ function renderArtists() {
 
 makeOwnSubmit.addEventListener("submit", async function (event) {
   event.preventDefault();
-  makeOwn.disabled = "true";
 
   const checkedIdsArray = [];
   const checkedArtistsInputs = document.querySelectorAll(

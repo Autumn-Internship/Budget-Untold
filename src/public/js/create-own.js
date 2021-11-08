@@ -1,4 +1,4 @@
-import { authToken, getUserDisplayName, getUserId } from "./user-data.js";
+import { authToken, getUserId } from "./user-data.js";
 import {
   getTopArtists,
   getTopArtistsTracks,

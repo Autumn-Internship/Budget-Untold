@@ -1,4 +1,4 @@
-import { getUserId, getUserDisplayName } from "./user-data.js";
+import { getUserId } from "./user-data.js";
 import { timeTable } from "./data.js";
 import {
   getTopArtists,

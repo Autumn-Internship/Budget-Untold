@@ -2,11 +2,9 @@ import { authToken,getUserId, getUserDisplayName } from './user-data.js';
 import { countryNamesMap, categoryIdList, marketCodes, countryCodes } from './data.js';
 import { getUserPlaylists, upsertPlaylistCollection} from "./playlists-list.js";
 
-const userNameElement = document.getElementById("user-name");
+
 const confirmationElement = document.getElementById("confirmation-message");
 
-const userName = await getUserDisplayName();
-userNameElement.innerHTML = userName;
 
 export async function getCountryPlaylists() {
     let data = new FormData(worldForm);

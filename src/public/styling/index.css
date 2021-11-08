@@ -227,6 +227,8 @@ li {
   background-color: #191414;
   color: white;
   margin: 48px auto;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .artist-card p {

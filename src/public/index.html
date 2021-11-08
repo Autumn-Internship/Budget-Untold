@@ -1,32 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./styling/index.css" />
-    <title>Festival Generator</title>
-
-  
-  </head>
-  <body id="sign-in-bg">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu | Festival Generator</title>
+    <link rel="stylesheet" href="./styling/index.css">
+</head>
+<body id="home">
     <header>
-      <section class="header-section">
-        <h1 class="main-title">Welcome to Festival Generator!</h1>
-      </section>
+        <nav class="navbar">
+            <p class="big-p" id="greeting"></p>
+            <ol class="nav-list">
+                <li>
+                    <a href="./index.html"><p class="medium-p">Home</p></a>
+                </li>
+                <li>
+                    <a href="./playlists-list.html"><p class="medium-p">My playlists</p></a>
+                </li>
+                <li>
+                  <a href="./authorization.html" id="login-button" ><p class="medium-p">Log in</p></a>
+                  
+              </li>
+              <li>
+                <a href="./authorization.html" id="logout-button" ><p class="medium-p">Log out</p></a>
+            </li>
+            </ol>
+            <div class="burger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+        </nav>
     </header>
     <main>
-      <section class="main-section">
-        <h2 id="sign-in">Sign in to generate your festival</h2>
-        <button
-          id="login-button"
-          aria-describedby="sign-in"
-          type="button"
-          class="main-button">
-          Sign in with Spotify
-        </button>
-      </section>
+        <section class="main-section">
+            <ul class="menu-wrapper">
+                <li>
+                    <a href="./create-own.html" class="flip-card">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front" id="create-own">
+                                <h2>Create your own</h2>
+                            </div>
+                            <div class="flip-card-back">
+                                <p class="medium-p">Listen to the top hits of your favorite artists</p>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="./music-festival.html" class="flip-card">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front" id="music-festival">
+                                <h2>Music Festival</h2>
+                            </div>
+                            <div class="flip-card-back">
+                                <p class="medium-p">Receive a fully personalized festival just for you</p>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="./around-world.html" class="flip-card">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front"  id="around-world">
+                                <h2>Around the World</h2>
+                            </div>
+                            <div class="flip-card-back">
+                                <p class="medium-p">Discover the top hits around the world</p>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                
+            </ul>
+        </section>
     </main>
+    <script type="module" src="./js/display-name.js"></script>
     <script src="./js/authorization.js"></script>
-  </body>
+    <script src="./js/hamburger-menu.js"></script>
+</body>
 </html>

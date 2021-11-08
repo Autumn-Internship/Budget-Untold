@@ -1,4 +1,4 @@
-import { getUserId, getUserDisplayName } from "./user-data.js";
+import { getUserId } from "./user-data.js";
 import { timeTable } from "./data.js";
 import {
   getTopArtists,
@@ -8,12 +8,10 @@ import {
 } from "./spotify-requests.js";
 import { postPlaylistCollection } from "./playlists-list.js";
 
-const userNameElement = document.getElementById("user-name");
+
 const confirmationElement = document.getElementById("confirmation-message");
 const musicFestivalButton = document.getElementById("music-festival-button");
 
-const userName = await getUserDisplayName();
-userNameElement.innerHTML = userName;
 
 async function getTopTracksObj(artistIdsArray) {
   let arrayTop = [];

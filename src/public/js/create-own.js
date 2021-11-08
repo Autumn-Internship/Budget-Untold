@@ -1,4 +1,4 @@
-import { authToken, getUserDisplayName, getUserId } from "./user-data.js";
+import { authToken, getUserId } from "./user-data.js";
 import {
   getTopArtists,
   getTopArtistsTracks,
@@ -8,13 +8,11 @@ import {
 
 import { patchPlaylistCollection } from "./playlists-list.js";
 
-const userNameElement = document.getElementById("user-name");
+
 const confirmationElement = document.getElementById("confirmation-message");
 const makeOwnSubmit = document.getElementById("create-own-form");
 const formInnerContent = document.getElementById("create-own-form-inner");
 
-const userName = await getUserDisplayName();
-userNameElement.innerHTML = userName;
 
 async function getRelatedArtists() {
   const topArtistsResponse = await getTopArtists();

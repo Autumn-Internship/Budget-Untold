@@ -6,10 +6,9 @@ import {
 
 import{getPlaylistDetails} from "./spotify-requests.js";
 
-const userNameElement = document.getElementById("user-name");
-const userName = await getUserDisplayName();
+
 const userId = await getUserId();
-userNameElement.innerHTML = userName;
+
 
 hasPremiumAccount();
 

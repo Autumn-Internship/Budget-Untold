@@ -2,7 +2,7 @@
   "name": "budget-untold",
   "version": "1.0.0",
   "description": "<h1 align=center> :musical_note: Budget-Untold :musical_note: </h1>",
-  "main": "index.js",
+  "main": "display-name.js",
   "scripts": {
     "start": "nodemon ./src/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"

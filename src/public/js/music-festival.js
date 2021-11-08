@@ -1,6 +1,12 @@
-import { getUserDisplayName } from "./user-data.js";
+import { getUserId, getUserDisplayName } from "./user-data.js";
 import { timeTable } from "./data.js";
-import { getTopArtists, getEmptyPlaylistId, getTopArtistsTracks, addTracksToPlaylist } from "./spotify-requests.js";
+import {
+  getTopArtists,
+  getEmptyPlaylistId,
+  getTopArtistsTracks,
+  addTracksToPlaylist,
+} from "./spotify-requests.js";
+import { postPlaylistCollection } from "./playlists-list.js";
 
 const userNameElement = document.getElementById("user-name");
 const confirmationElement = document.getElementById("confirmation-message");
@@ -38,7 +44,10 @@ async function getTopTracksObj(artistIdsArray) {
 
 async function generateMusicFestivalPlaylist(topTracks) {
   const topTracksForPlaylist = await topTracks;
-  const playlistId = await getEmptyPlaylistId("Music Festival", "The coolest playlist");
+  const playlistId = await getEmptyPlaylistId(
+    "Music Festival",
+    "The coolest playlist"
+  );
 
   const uriFinalArray = [];
   topTracksForPlaylist.map((finalTracksAndArtists) => {
@@ -48,26 +57,29 @@ async function generateMusicFestivalPlaylist(topTracks) {
   });
 
   let resultUri = [];
-  uriFinalArray.map((element) => (resultUri.push(element)));
-
+  uriFinalArray.map((element) => resultUri.push(element));
   addTracksToPlaylist(resultUri, playlistId);
+
+  return playlistId;
 }
 
 musicFestivalButton.onclick = () => {
   let topTracks;
+  let topArtistsImage;
   confirmationElement.innerHTML = "Your festival has been created!";
   const topArtists = getTopArtists();
   topArtists.then((result) => {
+    topArtistsImage = result.topArtistsArrayImage;
     topTracks = getTopTracksObj(result.topArtistsArrayId);
     topTracks.then((result) => {
       setTimeout(() => {
-        const lineUp = document.getElementById("line-up")
-      
+        const lineUp = document.getElementById("line-up");
+
         const finalResult = result;
         timeTable.map((hour, index) => {
           const artistCard = document.createElement("div");
           artistCard.classList.add("artist-card");
-          
+
           const artistHour = document.createElement("p");
           const contentHours = document.createTextNode(hour);
           artistHour.appendChild(contentHours);
@@ -77,9 +89,9 @@ musicFestivalButton.onclick = () => {
             finalResult[index].artist
           );
           artistName.appendChild(contentArtists);
-          
-          //const artistImage;
-          //artistCard.style.backgroundImage = url(artistImage);
+
+          const artistImage = topArtistsImage[index];
+          artistCard.style.backgroundImage = "url(" + artistImage + ")";
 
           artistCard.appendChild(artistHour);
           artistCard.appendChild(artistName);
@@ -88,7 +100,11 @@ musicFestivalButton.onclick = () => {
       }, 100);
     });
   });
-  setTimeout(() => {
-    generateMusicFestivalPlaylist(topTracks);
+  setTimeout(async () => {
+    const userId = await getUserId();
+    const playlistId = await generateMusicFestivalPlaylist(topTracks);
+    console.log("Userid:", userId);
+    console.log("playid:", playlistId);
+    postPlaylistCollection(userId, playlistId, "music-festival");
   }, 1000);
 };

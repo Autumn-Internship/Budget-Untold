@@ -1,5 +1,12 @@
 import { authToken, getUserDisplayName, getUserId } from "./user-data.js";
-import { getTopArtists, getTopArtistsTracks, getEmptyPlaylistId, addTracksToPlaylist } from "./spotify-requests.js";
+import {
+  getTopArtists,
+  getTopArtistsTracks,
+  getEmptyPlaylistId,
+  addTracksToPlaylist,
+} from "./spotify-requests.js";
+
+import { patchPlaylistCollection } from "./playlists-list.js";
 
 const userNameElement = document.getElementById("user-name");
 const confirmationElement = document.getElementById("confirmation-message");
@@ -152,20 +159,25 @@ makeOwnSubmit.addEventListener("submit", async function (event) {
   }
 
   async function generateMakeOwnPlaylist() {
-    const playlistId = await getEmptyPlaylistId("My playlist", "My favorite artists' top tracks");
+    const playlistId = await getEmptyPlaylistId(
+      "My playlist",
+      "My favorite artists' top tracks"
+    );
     let tracksUris = [];
-    for(let artistId of checkedIdsArray) {
+    for (let artistId of checkedIdsArray) {
       let topTracksObj = await getTopArtistsTracks(artistId);
       let topTracks = topTracksObj.tracks;
-      for(let track of topTracks) {
+      for (let track of topTracks) {
         tracksUris.push(track.uri);
       }
     }
     addTracksToPlaylist(tracksUris, playlistId);
+    return playlistId;
   }
-  await generateMakeOwnPlaylist();
+
+  const playlistId = await generateMakeOwnPlaylist();
+  const userId = await getUserId();
+  await patchPlaylistCollection(userId, playlistId, "create-own-festival");
 });
 
 renderArtists();
-
-

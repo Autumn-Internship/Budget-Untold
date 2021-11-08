@@ -1,5 +1,6 @@
-import { authToken, getUserDisplayName } from './user-data.js';
+import { authToken,getUserId, getUserDisplayName } from './user-data.js';
 import { countryNamesMap, categoryIdList, marketCodes, countryCodes } from './data.js';
+import { getUserPlaylists, patchPlaylistCollection} from "./playlists-list.js";
 
 const userNameElement = document.getElementById("user-name");
 const confirmationElement = document.getElementById("confirmation-message");
@@ -31,6 +32,8 @@ export async function followPlaylist(playlistId) {
         'Accept': 'application/json',
         'Content-Type': 'application/json'}
     });
+    return playlistId;
+    
 }
 
 export async function followCountryPlaylist() {
@@ -39,6 +42,8 @@ export async function followCountryPlaylist() {
     let randomNum = Math.floor(Math.random() * (totalPlaylists + 1));
     let countryPlaylistId = await countryPlaylists.playlists.items[randomNum].id;
         await followPlaylist(countryPlaylistId);
+        return countryPlaylistId;
+    
 }
 
 export function addOptions(list, valueName) {
@@ -57,12 +62,18 @@ for (let code of marketCodes.markets) {
 for (let category in categoryIdList) {
     addOptions(categoriesList, category);
 }
-  
+
+
 worldForm.addEventListener("submit", async function (event) {
     event.preventDefault();
     try {
-      await followCountryPlaylist();
+    const playlistId = await followCountryPlaylist();
       confirmationElement.innerHTML = "Your festival has been created!";
+     const userId = await getUserId();
+    confirmationElement.innerHTML = "Your festival has been created!";
+    
+    await patchPlaylistCollection(userId, playlistId, "around-world");
+    getUserPlaylists(userId);
     } catch {
       confirmationElement.innerHTML =
         "Something went wrong. Please try again later.";

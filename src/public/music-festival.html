@@ -35,7 +35,7 @@
   </header>
     <main>
       <section class="main-section">
-        <h1 id="confirmation-message">Your festival awaits!</h1>
+        <h1>Your festival awaits!</h1>
         <button id="music-festival-button" type="button" class="main-button">
           Generate festival
         </button>
@@ -46,6 +46,16 @@
 
         </div>
       </section>
+      <div id="confirmation-overlay">
+        <div>
+            <p class="big-p" id="confirmation-message"></p>
+            <div id="succesful-confirmation">
+                <p class="medium-p">Open spotify to play it.</p>
+                <p class="medium-p">Or click <a class="inline-link" href="./playlists-list.html">here</a> to view your playlists</p>
+            </div>
+            <button class="main-button" type="button" id="confirmation-button"></button>
+        </div>
+    </div>
     </main>
     <script type="module" src="./js/display-name.js"></script>
     <script src="./js/hamburger-menu.js"></script> 

@@ -7,6 +7,10 @@ import {
 } from "./spotify-requests.js";
 
 const confirmationElement = document.getElementById("confirmation-message");
+const confirmationButton = document.getElementById("confirmation-button");
+const confirmationOverlay = document.getElementById("confirmation-overlay");
+const succesfulConfirmation = document.getElementById("succesful-confirmation");
+
 const makeOwnSubmit = document.getElementById("create-own-form");
 const formInnerContent = document.getElementById("create-own-form-inner");
 
@@ -145,40 +149,55 @@ function renderArtists() {
   }
 }
 
+async function generateMakeOwnPlaylist(checkedIdsArray) {
+  const playlistId = await getEmptyPlaylistId(
+    "My playlist",
+    "My favorite artists' top tracks"
+  );
+  let tracksUris = [];
+  for (let artistId of checkedIdsArray) {
+    let topTracksObj = await getTopArtistsTracks(artistId);
+    let topTracks = topTracksObj.tracks;
+    for (let track of topTracks) {
+      tracksUris.push(track.uri);
+    }
+  }
+  addTracksToPlaylist(tracksUris, playlistId);
+      return playlistId;
+}
+
 makeOwnSubmit.addEventListener("submit", async function (event) {
   event.preventDefault();
-
-  const checkedIdsArray = [];
-  const checkedArtistsInputs = document.querySelectorAll(
-    'input[type="checkbox"]'
-  );
-
-  for (let i = 0; i < checkedArtistsInputs.length; i++) {
-    if (checkedArtistsInputs[i].checked) {
-      checkedIdsArray.push(checkedArtistsInputs[i].id);
-    }
-  }
-
-  async function generateMakeOwnPlaylist() {
-    const playlistId = await getEmptyPlaylistId(
-      "My playlist",
-      "My favorite artists' top tracks"
+  confirmationOverlay.style.display = "flex";
+  try {
+    const checkedIdsArray = [];
+    const checkedArtistsInputs = document.querySelectorAll(
+      'input[type="checkbox"]'
     );
-    let tracksUris = [];
-    for (let artistId of checkedIdsArray) {
-      let topTracksObj = await getTopArtistsTracks(artistId);
-      let topTracks = topTracksObj.tracks;
-      for (let track of topTracks) {
-        tracksUris.push(track.uri);
+  
+    for (let i = 0; i < checkedArtistsInputs.length; i++) {
+      if (checkedArtistsInputs[i].checked) {
+        checkedIdsArray.push(checkedArtistsInputs[i].id);
       }
     }
-    addTracksToPlaylist(tracksUris, playlistId);
-    return playlistId;
-  }
+  
+    const playlistId = await generateMakeOwnPlaylist(checkedIdsArray);
 
-  const playlistId = await generateMakeOwnPlaylist();
-  const userId = await getUserId();
-  await upsertPlaylistCollection(userId, playlistId, "create-own-festival");
+    confirmationElement.innerText = "Your festival has been created!";
+    confirmationButton.innerHTML = "Great!";
+
+    const userId = await getUserId();
+    await upsertPlaylistCollection(userId, playlistId, "create-own-festival");
+  } catch {
+      succesfulConfirmation.style.display = "none";
+        confirmationElement.innerHTML =
+        "Something went wrong. Please try again later.";
+        confirmationButton.innerHTML = "Ok";
+  } finally {
+    confirmationButton.addEventListener("click", (event) => {
+        confirmationOverlay.style.display = "none";
+  });
+}
 });
 
 renderArtists();

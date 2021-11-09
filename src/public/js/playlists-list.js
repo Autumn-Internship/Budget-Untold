@@ -1,14 +1,14 @@
-import {
-  hasPremiumAccount,
-  getCurrentUserPlaylists,
-  getUserId,
-} from "./user-data.js";
+import { getCurrentUserPlaylists, getUserId } from "./user-data.js";
 
-import{getPlaylistDetails} from "./spotify-requests.js";
+import{ getPlaylistDetails } from "./spotify-requests.js";
+
+//import {playPlaylist} from "./spotify-requests.js";
+//import { hasPremiumAccount } from "./user-data.js";
+
+//hasPremiumAccount();
 
 const userId = await getUserId();
 
-hasPremiumAccount();
 
 const seeHistoy = document.getElementById("playlist-list-button");
 
@@ -73,12 +73,21 @@ async function showPlaylists(userPlaylists){
 
     const playlistCard = document.createElement("div");
     playlistCard.classList.add("artist-card");
+    playlistCard.classList.add("open-playlist");
 
     const playlistName = document.createElement("p");
     const contentPlaylistName = document.createTextNode(playlistDetails.playlistName);
 
     const playlistImage = playlistDetails.playlistImage;
     playlistCard.style.backgroundImage = "url(" + playlistImage + ")";
+    const playlistUri = playlistDetails.playlistUri;
+
+    const playlistUrl = playlistDetails.playlistUrl;
+
+    playlistCard.addEventListener("click", (event) => {
+      //playPlaylist(playlistUri);
+      window.open(playlistUrl, '_blank').focus();
+    });
 
     playlistName.appendChild(contentPlaylistName);
     playlistCard.appendChild(playlistName);
@@ -109,7 +118,10 @@ seeHistoy.onclick = async () => {
     let userPlaylistsIds = await getUserPlaylistsIds(userId);
     await removeDeletedPlaylists(userPlaylistsIds);
     userPlaylistsIds = await getUserPlaylistsIds(userId);
-
+    if(!userPlaylistsIds.length) {
+      const bird = document.getElementById("happy-bird");
+      bird.style.display = "block";
+    }
     for (let playlistId of userPlaylistsIds) {
       await showPlaylists(playlistId);
     }

@@ -110,11 +110,7 @@ a {
   margin: 0;
 }
 
-.medium-p {
-  font-size: 1rem;
-  font-weight: 500;
-  margin: 0;
-}
+
 
 .main-button {
   display: block;
@@ -412,6 +408,116 @@ li {
   margin: 24px 0;
 }
 
+.burger{
+  cursor:pointer;
+  display: block;
+}
+
+.line1, .line2, .line3 {
+  width: 25px;
+  height: 3px;
+  background-color: rgb(255, 255, 255);
+  margin: 6px 0;
+  transition: 0.4s;
+}
+
+.change .line1 {
+  -webkit-transform: rotate(-45deg) translate(-8px, 6px);
+  transform: rotate(-45deg) translate(-8px, 6px);
+}
+
+.change .line2 {opacity: 0;}
+
+.change .line3 {
+  -webkit-transform: rotate(40deg) translate(-8px, -8px);
+  transform: rotate(45deg) translate(-8px, -6px);
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+}
+.hamburger {
+  display: none;
+}
+.nav-menu {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-item {
+  margin-left: 5rem;
+}
+
+.medium-p:hover{
+  color: #1db954;
+}
+
+.bar {
+  display: block;
+  width: 25px;
+  height: 3px;
+  margin: 5px auto;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+  background-color: #101010;
+}
+
+@media only screen and (max-width: 768px) {
+  .nav-menu {
+      position:  absolute;
+      right: -100%;
+      top: -1rem;
+      flex-direction: column;
+      background-color: #000;
+      width: 100%;
+      border-radius: 10px;
+      text-align: center;
+      transition: all 0.3s ease-in-out;
+      box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
+      z-index: 5;
+  }
+
+  .nav-menu.active {
+      right: 0;
+  }
+
+  .nav-item {
+      margin: 2.5rem 0;
+  }
+
+  .hamburger {
+      z-index: 7;
+      display: block;
+      cursor: pointer;
+  }
+
+  .hamburger.active .bar:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.active .bar:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+    background-color: #ffffff;
+}
+
+.hamburger.active .bar:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+    background-color: #ffffff;
+}
+
+.medium-p{
+  font-size: 1.4rem;
+}
+.big-p {
+  font-size: 1.5rem;
+}
+
+}
+
 @media only screen and (min-width: 768px) {
   .navbar {
     padding: 24px 40px;
@@ -422,13 +528,7 @@ li {
   .medium-p {
     font-size: 1.25rem;
   }
-  .nav-list {
-    gap: 40px;
-    margin: 0 40px;
-  }
-  .burger {
-    display: none;
-  }
+
   .form.form-desktop {
     width: 640px;
     margin: 24px;

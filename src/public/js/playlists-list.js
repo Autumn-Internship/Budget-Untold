@@ -77,8 +77,8 @@ async function showPlaylists(userPlaylists){
     const playlistName = document.createElement("p");
     const contentPlaylistName = document.createTextNode(playlistDetails.playlistName);
 
-    //const playlistImage = playlistDetails.playlistImage;
-    //playlistCard.style.backgroundImage = "url(" + playlistImage + ")";
+    const playlistImage = playlistDetails.playlistImage;
+    playlistCard.style.backgroundImage = "url(" + playlistImage + ")";
 
     playlistName.appendChild(contentPlaylistName);
     playlistCard.appendChild(playlistName);

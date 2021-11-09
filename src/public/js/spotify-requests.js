@@ -98,11 +98,11 @@ export async function getPlaylistDetails(playlistId) {
   );
   const playlistIdResponse = await response.json();
   const playlistName= playlistIdResponse.name;
-  //const playlistImage=playlistIdResponse.images[1].url;
+  const playlistImage=playlistIdResponse.images[0].url;
 
   const playlistObject = {
     playlistName, 
-   // playlistImage,
+    playlistImage,
 }
 return playlistObject;
 }

@@ -133,12 +133,13 @@
   }
 
   const buttonLogIn = document.getElementById("login-button");
-  buttonLogIn.addEventListener(
-    "click",
-    redirectToSpotifyAuthorizeEndpoint,
-    false
-  );
+  if(buttonLogIn){
+    buttonLogIn.addEventListener("click",redirectToSpotifyAuthorizeEndpoint, false);
+  }
+  
 
   const buttonLogOut = document.getElementById("logout-button");
-  buttonLogOut.addEventListener("click", logout, false);
+  if (buttonLogOut){
+    buttonLogOut.addEventListener("click", logout, false);
+  }
 })();

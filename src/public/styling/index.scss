@@ -23,7 +23,11 @@ body {
 body:not(#home, #sign-in-bg) {
   color: $white;
   font-family: sans-serif;
-  background: radial-gradient(99.13% 183.21% at 99.13% 0%, #0C4D23 0%, #191414 54.74%);
+  background: radial-gradient(
+    99.13% 183.21% at 99.13% 0%,
+    #0c4d23 0%,
+    #191414 54.74%
+  );
   background-repeat: no-repeat;
   background-color: $black;
 }
@@ -43,12 +47,14 @@ body:not(#home, #sign-in-bg) {
   justify-content: center;
 }
 
-#sign-in-bg h2, #sign-in-bg h1 {
+#sign-in-bg h2,
+#sign-in-bg h1 {
   text-shadow: $text-shadow;
   text-align: center;
 }
 
-ul, ol {
+ul,
+ol {
   padding-inline-start: 0;
 }
 
@@ -161,7 +167,8 @@ li {
   transform-style: preserve-3d;
 }
 
-.flip-card-front, .flip-card-back {
+.flip-card-front,
+.flip-card-back {
   position: absolute;
   width: 100%;
   height: 100%;
@@ -330,15 +337,133 @@ li {
   text-align: center;
 }
 
-@media only screen and (min-width: 768px) {
-  .navbar {
-    padding: 24px 40px;
+.message {
+  text-align: center;
+  margin: 32px;
+}
+
+#happy-bird {
+  display: none;
+  margin: 24px 0;
+}
+
+.line1,
+.line2,
+.line3 {
+  width: 25px;
+  height: 3px;
+  background-color: rgb(255, 255, 255);
+  margin: 6px 0;
+  transition: 0.4s;
+}
+
+.change .line1 {
+  -webkit-transform: rotate(-45deg) translate(-8px, 6px);
+  transform: rotate(-45deg) translate(-8px, 6px);
+}
+
+.change .line2 {
+  opacity: 0;
+}
+
+.change .line3 {
+  -webkit-transform: rotate(40deg) translate(-8px, -8px);
+  transform: rotate(45deg) translate(-8px, -6px);
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+}
+.hamburger {
+  display: none;
+}
+.nav-menu {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-item {
+  margin-left: 5rem;
+}
+
+.medium-p:hover {
+  color: #1db954;
+}
+
+.bar {
+  display: block;
+  width: 25px;
+  height: 3px;
+  margin: 5px auto;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+  background-color: #101010;
+}
+
+@media only screen and (max-width: 768px) {
+  .nav-menu {
+    position: absolute;
+    right: -120%;
+    top: -1rem;
+    flex-direction: column;
+    background-color: #000;
+    width: 100%;
+    border-radius: 10px;
+    text-align: center;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
+    z-index: 5;
   }
-  
+
+  .nav-menu.active {
+    right: 0;
+  }
+
+  .nav-item {
+    margin: 2.5rem 0;
+  }
+
+  .hamburger {
+    z-index: 7;
+    display: block;
+    cursor: pointer;
+  }
+
+  .hamburger.active .bar:nth-child(2) {
+    opacity: 0;
+  }
+
+  .hamburger.active .bar:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+    background-color: #ffffff;
+  }
+
+  .hamburger.active .bar:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+    background-color: #ffffff;
+  }
+
+  .medium-p {
+    font-size: 1.4rem;
+  }
   .big-p {
     font-size: 1.5rem;
   }
-  
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+  .navbar {
+    padding: 24px 40px;
+  }
+
+  .big-p {
+    font-size: 1.5rem;
+  }
+
   .medium-p {
     font-size: 1.25rem;
   }
@@ -366,19 +491,20 @@ li {
   #home {
     background-image: url("../images/home-bg.jpg");
   }
-  
+
   .menu-wrapper {
     grid-template-columns: auto auto auto auto;
     margin-top: 88px;
     grid-gap: 40px;
   }
-  
+
   .flip-card {
     width: 280px;
     height: 280px;
   }
-  
-  .line-up-wrapper, .playlist-list-wrapper {
+
+  .line-up-wrapper,
+  .playlist-list-wrapper {
     display: grid;
     width: fit-content;
     grid-template-columns: auto auto;
@@ -402,4 +528,3 @@ li {
     grid-gap: 10px;
   }
 }
-

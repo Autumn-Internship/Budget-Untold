@@ -62,4 +62,4 @@ export async function upsertPlaylistCollection( userId, playlistId, playlistType
     } catch(err) {
       console.log(err);
     }
-  }
+}

@@ -235,6 +235,11 @@ li {
           filter: drop-shadow(0px 0px 4px rgba(0, 0, 0, 0.4));
 }
 
+.artist-card.open-playlist:hover {
+  -webkit-filter: brightness(0.5);
+          filter: brightness(0.5);
+  cursor: pointer;
+}
 
 #home {
   background-image: url("../images/home-mobile-bg.jpg");
@@ -393,6 +398,16 @@ li {
   text-align: center;
 }
 
+.message {
+  text-align: center;
+  margin: 32px;
+}
+
+#happy-bird {
+  display: none;
+  margin: 24px 0;
+}
+
 .burger{
   cursor:pointer;
   display: block;
@@ -431,19 +446,15 @@ li {
   display: flex;
   justify-content: space-between;
   align-items: center;
- 
 }
-
 
 .nav-item {
   margin-left: 5rem;
 }
 
-
 .medium-p:hover{
   color: #1db954;
 }
-
 
 .bar {
   display: block;
@@ -506,7 +517,6 @@ li {
 }
 
 }
-
 
 @media only screen and (min-width: 768px) {
   .navbar {

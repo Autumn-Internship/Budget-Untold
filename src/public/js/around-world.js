@@ -64,8 +64,8 @@ worldForm.addEventListener("submit", async function (event) {
     event.preventDefault();
     try {
     const playlistId = await followCountryPlaylist();
-      confirmationElement.innerHTML = "Your festival has been created!";
-     const userId = await getUserId();
+    confirmationElement.innerHTML = "Your festival has been created!";
+    const userId = await getUserId();
     confirmationElement.innerHTML = "Your festival has been created!";
     
     await upsertPlaylistCollection(userId, playlistId, "around-world");

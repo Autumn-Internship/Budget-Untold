@@ -1,4 +1,4 @@
-import { authToken,getUserId } from "./user-data.js";
+import { authToken, getUserId } from "./user-data.js";
 
 export async function getEmptyPlaylistId(playlistName, description) {
   let userId = await getUserId();
@@ -97,12 +97,33 @@ export async function getPlaylistDetails(playlistId) {
     }
   );
   const playlistIdResponse = await response.json();
-  const playlistName= playlistIdResponse.name;
-  const playlistImage=playlistIdResponse.images[0].url;
+  const playlistName = playlistIdResponse.name;
+  const playlistImage = playlistIdResponse.images[0].url;
+  const playlistUri = playlistIdResponse.uri;
+  const playlistUrl = playlistIdResponse.external_urls.spotify;
 
   const playlistObject = {
     playlistName, 
     playlistImage,
+    playlistUri,
+    playlistUrl,
 }
 return playlistObject;
 }
+
+// export async function playPlaylist(playlistUri) {
+//   fetch(
+//     `https://api.spotify.com/v1/me/player/play`,
+//     {
+//       method: "PUT",
+//       headers: {
+//         Authorization: `Bearer ${authToken()}`,
+//         Accept: "application/json",
+//         "Content-Type": "application/json",
+//       },
+//       body: JSON.stringify({
+//         "context_uri": playlistUri,
+//       }),
+//     }
+//   );
+// }

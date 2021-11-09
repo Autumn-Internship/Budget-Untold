@@ -1,4 +1,4 @@
-import { getUserId } from "./user-data.js";
+import { getUserId, upsertPlaylistCollection } from "./user-data.js";
 import { timeTable } from "./data.js";
 import {
   getTopArtists,

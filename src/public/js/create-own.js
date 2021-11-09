@@ -1,4 +1,4 @@
-import { authToken, getUserId } from "./user-data.js";
+import { authToken, getUserId, upsertPlaylistCollection } from "./user-data.js";
 import {
   getTopArtists,
   getTopArtistsTracks,
@@ -6,13 +6,9 @@ import {
   addTracksToPlaylist,
 } from "./spotify-requests.js";
 
-import { patchPlaylistCollection } from "./playlists-list.js";
-
-
 const confirmationElement = document.getElementById("confirmation-message");
 const makeOwnSubmit = document.getElementById("create-own-form");
 const formInnerContent = document.getElementById("create-own-form-inner");
-
 
 async function getRelatedArtists() {
   const topArtistsResponse = await getTopArtists();
@@ -182,7 +178,7 @@ makeOwnSubmit.addEventListener("submit", async function (event) {
 
   const playlistId = await generateMakeOwnPlaylist();
   const userId = await getUserId();
-  await patchPlaylistCollection(userId, playlistId, "create-own-festival");
+  await upsertPlaylistCollection(userId, playlistId, "create-own-festival");
 });
 
 renderArtists();

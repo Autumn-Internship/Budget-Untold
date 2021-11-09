@@ -1,7 +1,5 @@
-import { authToken,getUserId, getUserDisplayName } from './user-data.js';
+import { authToken, getUserId, upsertPlaylistCollection } from './user-data.js';
 import { countryNamesMap, categoryIdList, marketCodes, countryCodes } from './data.js';
-import { getUserPlaylists, patchPlaylistCollection} from "./playlists-list.js";
-
 
 const confirmationElement = document.getElementById("confirmation-message");
 
@@ -70,8 +68,7 @@ worldForm.addEventListener("submit", async function (event) {
      const userId = await getUserId();
     confirmationElement.innerHTML = "Your festival has been created!";
     
-    await patchPlaylistCollection(userId, playlistId, "around-world");
-    getUserPlaylists(userId);
+    await upsertPlaylistCollection(userId, playlistId, "around-world");
     } catch {
       confirmationElement.innerHTML =
         "Something went wrong. Please try again later.";

@@ -186,7 +186,8 @@ li {
 .artist-card {
   display: flex;
   justify-content: center;
-  align-items: flex-end;width: 280px;
+  align-items: flex-end;
+  width: 280px;
   height: 240px;
   background-color: $black;
   color: white;
@@ -195,11 +196,21 @@ li {
   background-size: cover;
 }
 
+.artist-card.open-playlist {
+  width: 280px;
+  height: 280px;
+}
+
 .artist-card p {
   font-size: 24px;
   text-align: center;
   margin: 18px 4px;
   filter: drop-shadow(0px 0px 4px rgba(0, 0, 0, 0.4));
+}
+
+.artist-card.open-playlist:hover {
+  filter: brightness(0.5);
+  cursor: pointer;
 }
 
 #home {
@@ -347,29 +358,6 @@ li {
   margin: 24px 0;
 }
 
-.line1,
-.line2,
-.line3 {
-  width: 25px;
-  height: 3px;
-  background-color: rgb(255, 255, 255);
-  margin: 6px 0;
-  transition: 0.4s;
-}
-
-.change .line1 {
-  -webkit-transform: rotate(-45deg) translate(-8px, 6px);
-  transform: rotate(-45deg) translate(-8px, 6px);
-}
-
-.change .line2 {
-  opacity: 0;
-}
-
-.change .line3 {
-  -webkit-transform: rotate(40deg) translate(-8px, -8px);
-  transform: rotate(45deg) translate(-8px, -6px);
-}
 
 .navbar {
   display: flex;
@@ -456,6 +444,7 @@ li {
 }
 
 @media only screen and (min-width: 768px) and (max-width: 1023px) {
+
   .navbar {
     padding: 24px 40px;
   }
@@ -516,6 +505,11 @@ li {
     width: 480px;
     height: 400px;
     margin: 48px 0;
+  }
+
+  .artist-card.open-playlist {
+    width: 480px;
+    height: 480px;
   }
 
   .form.form-desktop {

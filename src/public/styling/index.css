@@ -239,6 +239,12 @@ li {
           filter: drop-shadow(0px 0px 4px rgba(0, 0, 0, 0.4));
 }
 
+.artist-card.open-playlist:hover {
+  -webkit-filter: brightness(0.5);
+          filter: brightness(0.5);
+  cursor: pointer;
+}
+
 #home {
   background-image: url("../images/home-mobile-bg.jpg");
   background-repeat: no-repeat;
@@ -394,6 +400,16 @@ li {
 
 #confirmation-message {
   text-align: center;
+}
+
+.message {
+  text-align: center;
+  margin: 32px;
+}
+
+#happy-bird {
+  display: none;
+  margin: 24px 0;
 }
 
 @media only screen and (min-width: 768px) {

@@ -1,4 +1,4 @@
-import { getUserId } from "./user-data.js";
+import { getUserId, upsertPlaylistCollection } from "./user-data.js";
 import { timeTable } from "./data.js";
 import {
   getTopArtists,
@@ -6,7 +6,6 @@ import {
   getTopArtistsTracks,
   addTracksToPlaylist,
 } from "./spotify-requests.js";
-import { patchPlaylistCollection } from "./playlists-list.js";
 
 const confirmationElement = document.getElementById("confirmation-message");
 const musicFestivalButton = document.getElementById("music-festival-button");
@@ -98,8 +97,8 @@ async function topTracksHelper(){
 }
 
 musicFestivalButton.onclick = async() => {
-  let playlistId=await topTracksHelper();
+  let playlistId = await topTracksHelper();
   confirmationElement.innerHTML = "Your festival has been created!";
-  patchPlaylistCollection(userId, playlistId, "music-festival");
+  upsertPlaylistCollection(userId, playlistId, "music-festival");
   displayArtists();
 };

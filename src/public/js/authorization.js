@@ -44,7 +44,7 @@
           response_type: "code",
           client_id,
           scope:
-            "user-read-private user-read-email playlist-modify-public playlist-modify-private user-top-read",
+            "user-read-private user-read-email playlist-modify-public playlist-modify-private user-top-read playlist-read-private",
           code_challenge_method: "S256",
           code_challenge,
           redirect_uri,

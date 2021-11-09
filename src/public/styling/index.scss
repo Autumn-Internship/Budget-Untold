@@ -179,13 +179,19 @@ li {
 .artist-card {
   display: flex;
   justify-content: center;
-  align-items: flex-end;width: 280px;
+  align-items: flex-end;
+  width: 280px;
   height: 240px;
   background-color: $black;
   color: white;
   margin: 48px auto;
   background-repeat: no-repeat;
   background-size: cover;
+}
+
+.artist-card.open-playlist {
+  width: 280px;
+  height: 280px;
 }
 
 .artist-card p {
@@ -405,6 +411,11 @@ li {
     width: 480px;
     height: 400px;
     margin: 48px 0;
+  }
+
+  .artist-card.open-playlist {
+    width: 480px;
+    height: 480px;
   }
 
   .form.form-desktop {

@@ -1,12 +1,10 @@
-import { authToken, getUserId } from "./user-data.js";
+import { authToken, getUserId, upsertPlaylistCollection } from "./user-data.js";
 import {
   getTopArtists,
   getTopArtistsTracks,
   getEmptyPlaylistId,
   addTracksToPlaylist,
 } from "./spotify-requests.js";
-
-import { upsertPlaylistCollection } from "./playlists-list.js";
 
 const confirmationElement = document.getElementById("confirmation-message");
 const makeOwnSubmit = document.getElementById("create-own-form");

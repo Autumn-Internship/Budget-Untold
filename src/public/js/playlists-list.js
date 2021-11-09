@@ -1,6 +1,6 @@
 import {
   hasPremiumAccount,
-  getUserDisplayName,
+  getCurrentUserPlaylists,
   getUserId,
 } from "./user-data.js";
 
@@ -12,47 +12,7 @@ hasPremiumAccount();
 
 const seeHistoy = document.getElementById("playlist-list-button");
 
-export async function postPlaylistCollection(userId, playlistId, playlistType) {
-  try {
-    await fetch("http://127.0.0.1:8080/playlists", {
-      method: "POST",
-      headers: {
-        Accept: "*/*",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        userId: userId,
-        playlists: [
-          {
-            id: playlistId,
-            playlistType: playlistType,
-          },
-        ],
-      }),
-    });
-  } catch {
-    console.log("Didn't work :(");
-  }
-}
-
-export async function upsertPlaylistCollection( userId, playlistId, playlistType) {
-  try {
-    await fetch(
-      `http://127.0.0.1:8080/playlists/upsert/${userId}?playlistId=${playlistId}&playlistType=${playlistType}`,
-      {
-        method: "PUT",
-        headers: {
-          Accept: "*/*",
-          "Content-Type": "application/json",
-        },
-      }
-    );
-  } catch(err) {
-    console.log(err);
-  }
-}
-
-export async function getUserPlaylists(userId) {
+export async function getUserPlaylistsIds(userId) {
   try {
     const response = await fetch(`http://127.0.0.1:8080/playlists/${userId}`, {
       method: "GET",
@@ -61,10 +21,9 @@ export async function getUserPlaylists(userId) {
         "Content-Type": "application/json",
       },
     });
-    const showId = await response.json();
+    const userPlaylists = await response.json();
 
-    let userPlaylistsIds = showId.value.map((result) => result.id);
-    let userPlayliststype= showId.value.map((result) => result.playlistType);
+    let userPlaylistsIds = userPlaylists.value.map((playlist) => playlist.id);
 
     return userPlaylistsIds;
   } catch(err) {
@@ -72,7 +31,26 @@ export async function getUserPlaylists(userId) {
   }
 }
 
-export async function removePlaylist(userId, playlistId) {
+export async function getUserPlaylistsTypes(playlistType) {
+  try {
+    const response = await fetch(`http://127.0.0.1:8080/playlists/${playlistType}`, {
+      method: "GET",
+      headers: {
+        Accept: "*/*",
+        "Content-Type": "application/json",
+      },
+    });
+    const userPlaylists = await response.json();
+
+    let userPlaylistsIds = userPlaylists.value.map((playlist) => playlist.id);
+
+    return userPlaylistsIds;
+  } catch(err) {
+    console.log(err);
+  }
+}
+
+async function removePlaylist(userId, playlistId) {
   try {
     await fetch(
       `http://127.0.0.1:8080/playlists/removePlaylist/${userId}?playlistId=${playlistId}`,
@@ -107,13 +85,34 @@ async function showPlaylists(userPlaylists){
     playlistList.appendChild(playlistCard);
 }
 
+async function removeDeletedPlaylists(userPlaylistsIds) {
+  const currentUserPlaylists = await getCurrentUserPlaylists();
+  let dBPlaylistsSet = new Set();
+
+  for (let playlistId of userPlaylistsIds) {
+    dBPlaylistsSet.add(playlistId);
+  }
+
+  for (let playlist of currentUserPlaylists.items) {
+    if (dBPlaylistsSet.has(playlist.id)) {
+      dBPlaylistsSet.delete(playlist.id);
+    }
+  }
+
+  for (let playlistId of dBPlaylistsSet) {
+    removePlaylist(userId, playlistId);
+  }
+}
+
 seeHistoy.onclick = async () => {
   try {
-    const userPlaylists = await getUserPlaylists(userId);
-    console.log(userPlaylists);
-    
-    for (let i = 0; i < userPlaylists.length; i++) {
-    await showPlaylists(userPlaylists[i]);}
+    let userPlaylistsIds = await getUserPlaylistsIds(userId);
+    await removeDeletedPlaylists(userPlaylistsIds);
+    userPlaylistsIds = await getUserPlaylistsIds(userId);
+
+    for (let playlistId of userPlaylistsIds) {
+      await showPlaylists(playlistId);
+    }
   } catch {
     console.log("Sometimes went wrong");
   }

@@ -1,4 +1,4 @@
-import { getUserId } from "./user-data.js";
+import { getUserId, upsertPlaylistCollection } from "./user-data.js";
 import { timeTable } from "./data.js";
 import {
   getTopArtists,
@@ -6,7 +6,6 @@ import {
   getTopArtistsTracks,
   addTracksToPlaylist,
 } from "./spotify-requests.js";
-import { upsertPlaylistCollection } from "./playlists-list.js";
 
 const confirmationElement = document.getElementById("confirmation-message");
 const musicFestivalButton = document.getElementById("music-festival-button");

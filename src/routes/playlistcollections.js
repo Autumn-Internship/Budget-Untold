@@ -4,6 +4,39 @@ const PlaylistCollection = require("../models/playlistcollections");
 
 const router = express.Router();
 
+router.get("/", async (req, res) => {
+  try {
+    const playlistCollections = await PlaylistCollection.find();
+    res.status(200).json({ value: playlistCollections });
+  } catch (error) {
+    console.log("ERROR IS:", error);
+  }
+});
+
+router.get("/:userId", async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const playlistCollections = await PlaylistCollection.findOne({
+      userId: userId,
+    });
+    res.status(200).json({ value: playlistCollections.playlists });
+  } catch (error) {
+    console.log("ERROR IS:", error);
+  }
+});
+
+router.get("/:playlistType", async (req, res) => {
+  try {
+    const playlistType = req.params.playlistType;
+    const playlistCollections = await PlaylistCollection.findOne({
+      playlistType: playlistType,
+    });
+    res.status(200).json({ value: playlistCollections.playlists });
+  } catch (error) {
+    console.log("ERROR IS:", error);
+  }
+});
+
 router.post("/", async (req, res) => {
   try {
     const playlistCollection = req.body;
@@ -48,15 +81,6 @@ router.put("/upsert/:userId", async (req, res) => {
   }
 });
 
-router.get("/", async (req, res) => {
-  try {
-    const playlistCollections = await PlaylistCollection.find();
-    res.status(200).json({ value: playlistCollections });
-  } catch (error) {
-    console.log("ERROR IS:", error);
-  }
-});
-
 router.delete("/deleteCollection/:userId", async (req, res) => {
   try {
     const userId = req.params.userId;
@@ -67,17 +91,6 @@ router.delete("/deleteCollection/:userId", async (req, res) => {
   }
 });
 
-router.get("/:userId", async (req, res) => {
-  try {
-    const userId = req.params.userId;
-    const playlistCollections = await PlaylistCollection.findOne({
-      userId: userId,
-    });
-    res.status(200).json({ value: playlistCollections.playlists });
-  } catch (error) {
-    console.log("ERROR IS:", error);
-  }
-});
 
 router.patch("/removePlaylist/:userId", async (req, res) => {
   try {

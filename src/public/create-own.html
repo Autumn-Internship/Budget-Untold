@@ -9,18 +9,30 @@
   </head>
   <body>
     <header>
-      <nav class="navbar">
-        <p class="big-p" id="greeting"></p>
-        <ol class="nav-list">
-          <li>
-            <a href="./index.html"><p class="medium-p">Home</p></a>
-          </li>
-          <li>
-            <a href="./playlists-list.html"><p class="medium-p">My playlists</p></a>
-          </li>
-        </ol>
+      <nav class="navbar" id="navbar">
+          <p class="big-p" id="greeting"></p>
+          <ol class="nav-menu">
+              <li class="nav-item">
+                  <a href="./index.html"><p class="medium-p">Home</p></a>
+              </li>
+              <li class="nav-item">
+                  <a href="./playlists-list.html"><p class="medium-p">My playlists</p></a>
+              </li>
+              <li class="nav-item">
+                <a href="./authorization.html" id="login-button-meniu" ><p class="medium-p">Log in</p></a>
+                
+            </li>
+            <li class="nav-item">
+              <a href="./authorization.html" id="logout-button" ><p class="medium-p">Log out</p></a>
+            </li>
+          </ol>
+          <div class="hamburger">
+              <span class="bar"></span>
+              <span class="bar"></span>
+              <span class="bar"></span>
+          </div>
       </nav>
-    </header>
+  </header>
     <main>
       <section class="main-section">
         <h1 id="confirmation-message">Choose your favorite artists</h1>
@@ -31,5 +43,6 @@
     </main>
     <script type="module" src="./js/display-name.js"></script>
     <script type="module" src="./js/create-own.js"></script>
+    <script src="./js/hamburger-menu.js"></script> 
   </body>
 </html>

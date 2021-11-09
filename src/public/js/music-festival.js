@@ -6,12 +6,11 @@ import {
   getTopArtistsTracks,
   addTracksToPlaylist,
 } from "./spotify-requests.js";
-import { postPlaylistCollection } from "./playlists-list.js";
-
+import { patchPlaylistCollection } from "./playlists-list.js";
 
 const confirmationElement = document.getElementById("confirmation-message");
 const musicFestivalButton = document.getElementById("music-festival-button");
-
+const userId = await getUserId();
 
 async function getTopTracksObj(artistIdsArray) {
   let arrayTop = [];
@@ -43,7 +42,7 @@ async function getTopTracksObj(artistIdsArray) {
 async function generateMusicFestivalPlaylist(topTracks) {
   const topTracksForPlaylist = await topTracks;
   const playlistId = await getEmptyPlaylistId(
-    "Music Festival",
+    "Music Festival Generate",
     "The coolest playlist"
   );
 
@@ -61,48 +60,46 @@ async function generateMusicFestivalPlaylist(topTracks) {
   return playlistId;
 }
 
-musicFestivalButton.onclick = () => {
-  let topTracks;
-  let topArtistsImage;
-  confirmationElement.innerHTML = "Your festival has been created!";
-  const topArtists = getTopArtists();
-  topArtists.then((result) => {
-    topArtistsImage = result.topArtistsArrayImage;
-    topTracks = getTopTracksObj(result.topArtistsArrayId);
-    topTracks.then((result) => {
-      setTimeout(() => {
-        const lineUp = document.getElementById("line-up");
+async function displayArtists() {
+  const result = await getTopArtists();
 
-        const finalResult = result;
-        timeTable.map((hour, index) => {
-          const artistCard = document.createElement("div");
-          artistCard.classList.add("artist-card");
+  const artistNameResult = result.topArtistsArrayName;
+  const artistImageResult = result.topArtistsArrayImage;
+  const lineUp = document.getElementById("line-up");
 
-          const artistHour = document.createElement("p");
-          const contentHours = document.createTextNode(hour);
-          artistHour.appendChild(contentHours);
+  timeTable.map((hour, index) => {
+    const artistCard = document.createElement("div");
+    artistCard.classList.add("artist-card");
 
-          const artistName = document.createElement("p");
-          const contentArtists = document.createTextNode(
-            finalResult[index].artist
-          );
-          artistName.appendChild(contentArtists);
+    const artistHour = document.createElement("p");
+    const contentHours = document.createTextNode(hour);
+    artistHour.appendChild(contentHours);
 
-          const artistImage = topArtistsImage[index];
-          artistCard.style.backgroundImage = "url(" + artistImage + ")";
+    let nameDisplay = artistNameResult[index];
+    const artistName = document.createElement("p");
+    const contentArtists = document.createTextNode(nameDisplay);
+    artistName.appendChild(contentArtists);
 
-          artistCard.appendChild(artistHour);
-          artistCard.appendChild(artistName);
-          lineUp.appendChild(artistCard);
-        });
-      }, 100);
-    });
+    let imageDisplay = artistImageResult[index];
+    artistCard.style.backgroundImage = "url(" + imageDisplay + ")";
+
+    artistCard.appendChild(artistHour);
+    artistCard.appendChild(artistName);
+    lineUp.appendChild(artistCard);
   });
-  setTimeout(async () => {
-    const userId = await getUserId();
-    const playlistId = await generateMusicFestivalPlaylist(topTracks);
-    console.log("Userid:", userId);
-    console.log("playid:", playlistId);
-    postPlaylistCollection(userId, playlistId, "music-festival");
-  }, 1000);
+}
+
+async function topTracksHelper(){
+  const topArtists =await getTopArtists();
+  let idArtist=topArtists.topArtistsArrayId;
+  let topTracks = await getTopTracksObj(idArtist);
+  const playlistId = await generateMusicFestivalPlaylist(topTracks);
+  return playlistId;
+}
+
+musicFestivalButton.onclick = async() => {
+  let playlistId=await topTracksHelper();
+  confirmationElement.innerHTML = "Your festival has been created!";
+  patchPlaylistCollection(userId, playlistId, "music-festival");
+  displayArtists();
 };

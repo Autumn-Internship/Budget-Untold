@@ -36,7 +36,7 @@
     <main>
         <section class="main-section">
             <form class="form" id="world-form">
-                <h1 id="confirmation-message">Your festival awaits!</h1>
+                <h1>Your festival awaits!</h1>
                 <label class="label required" for="country">Country </label>
                 <input class ="input" id="country" list="countriesList" name="country" autocomplete="off" required>
                 <datalist id="countriesList">
@@ -50,6 +50,16 @@
                     <button id="world-festival-button" type="submit" class="main-button">Create playlist</button>
                 </form>
         </section>
+        <div id="confirmation-overlay">
+            <div>
+                <p class="big-p" id="confirmation-message"></p>
+                <div id="succesful-confirmation">
+                    <p class="medium-p">Open spotify to play it.</p>
+                    <p class="medium-p">Or click <a class="inline-link" href="./playlists-list.html">here</a> to view your playlists</p>
+                </div>
+                <button form="world-form" class="main-button" type="reset" id="confirmation-button"></button>
+            </div>
+        </div>
     </main>
     
     

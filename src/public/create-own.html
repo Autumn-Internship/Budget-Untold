@@ -35,14 +35,24 @@
   </header>
     <main>
       <section class="main-section">
-        <h1 id="confirmation-message">Choose your favorite artists</h1>
+        <h1>Choose your favorite artists</h1>
         <form class="form form-desktop" id="create-own-form">
           <div id="create-own-form-inner"></div>
         </form>
       </section>
+      <div id="confirmation-overlay">
+        <div>
+            <p class="big-p" id="confirmation-message"></p>
+            <div id="succesful-confirmation">
+                <p class="medium-p">Open spotify to play it.</p>
+                <p class="medium-p">Or click <a class="inline-link" href="./playlists-list.html">here</a> to view your playlists</p>
+            </div>
+            <button form="create-own-form" class="main-button" type="reset" id="confirmation-button"></button>
+        </div>
+      </div>
     </main>
     <script type="module" src="./js/display-name.js"></script>
-    <script type="module" src="./js/create-own.js"></script>
     <script src="./js/hamburger-menu.js"></script> 
+    <script type="module" src="./js/create-own.js"></script>
   </body>
 </html>

@@ -8,6 +8,10 @@ import {
 } from "./spotify-requests.js";
 
 const confirmationElement = document.getElementById("confirmation-message");
+const confirmationButton = document.getElementById("confirmation-button");
+const confirmationOverlay = document.getElementById("confirmation-overlay");
+const succesfulConfirmation = document.getElementById("succesful-confirmation");
+
 const musicFestivalButton = document.getElementById("music-festival-button");
 const userId = await getUserId();
 
@@ -97,8 +101,23 @@ async function topTracksHelper(){
 }
 
 musicFestivalButton.onclick = async() => {
-  let playlistId = await topTracksHelper();
-  confirmationElement.innerHTML = "Your festival has been created!";
-  upsertPlaylistCollection(userId, playlistId, "music-festival");
-  displayArtists();
+  confirmationOverlay.style.display = "flex";
+  try {
+    let playlistId = await topTracksHelper();
+    confirmationElement.innerHTML = "Your festival has been created!";
+    confirmationButton.innerHTML = "Great!";
+
+    upsertPlaylistCollection(userId, playlistId, "music-festival");
+    displayArtists();
+  } catch {
+    succesfulConfirmation.style.display = "none";
+    confirmationElement.innerHTML =
+    "Something went wrong. Please try again later.";
+    confirmationButton.innerHTML = "Ok";
+  } finally {
+    confirmationButton.addEventListener("click", (event) => {
+      confirmationOverlay.style.display = "none";
+    });
+  }
+  
 };

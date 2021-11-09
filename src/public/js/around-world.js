@@ -2,7 +2,9 @@ import { authToken, getUserId, upsertPlaylistCollection } from './user-data.js';
 import { countryNamesMap, categoryIdList, marketCodes, countryCodes } from './data.js';
 
 const confirmationElement = document.getElementById("confirmation-message");
-
+const confirmationButton = document.getElementById("confirmation-button");
+const confirmationOverlay = document.getElementById("confirmation-overlay");
+const succesfulConfirmation = document.getElementById("succesful-confirmation");
 
 export async function getCountryPlaylists() {
     let data = new FormData(worldForm);
@@ -39,7 +41,6 @@ export async function followCountryPlaylist() {
     let countryPlaylistId = await countryPlaylists.playlists.items[randomNum].id;
         await followPlaylist(countryPlaylistId);
         return countryPlaylistId;
-    
 }
 
 export function addOptions(list, valueName) {
@@ -62,15 +63,23 @@ for (let category in categoryIdList) {
 
 worldForm.addEventListener("submit", async function (event) {
     event.preventDefault();
+    confirmationOverlay.style.display = "flex";
     try {
-    const playlistId = await followCountryPlaylist();
-    confirmationElement.innerHTML = "Your festival has been created!";
-    const userId = await getUserId();
-    confirmationElement.innerHTML = "Your festival has been created!";
-    
-    await upsertPlaylistCollection(userId, playlistId, "around-world");
+        const playlistId = await followCountryPlaylist();
+
+        confirmationElement.innerHTML = "Your festival has been created!";
+        confirmationButton.innerHTML = "Great!";
+
+        const userId = await getUserId();
+        await upsertPlaylistCollection(userId, playlistId, "around-world");
     } catch {
-      confirmationElement.innerHTML =
+        succesfulConfirmation.style.display = "none";
+        confirmationElement.innerHTML =
         "Something went wrong. Please try again later.";
+        confirmationButton.innerHTML = "Ok";
+    } finally {
+        confirmationButton.addEventListener("click", (event) => {
+            confirmationOverlay.style.display = "none";
+        });
     }
 });

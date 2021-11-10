@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Around the World | Festival Generator</title>
+    <title>Create Own | Festival Generator</title>
     <link rel="stylesheet" href="./styling/index.css" />
   </head>
   <body>
@@ -28,12 +28,20 @@
               <span class="bar"></span>
           </div>
       </nav>
-  </header>
+    </header>
     <main>
       <section class="main-section">
-        <h1>Choose your favorite artists</h1>
+        <h1 id="choose-artists">Choose your favorite artists</h1>
         <form class="form form-desktop" id="create-own-form">
-          <div id="create-own-form-inner"></div>
+          <div>
+            <label class="label" for="name">Name your playlist</label>
+            <input class="input small-input" name="name" id="name" value="My playlist" placeholder="My playlist" type="text">
+            <label class="label" for="description">Write a description</label>
+            <input class="input small-input" name="description" id="description" value="My favorite artists' top tracks" placeholder="My favorite artists' top tracks" type="text">
+          </div>
+          <div role="group" aria-label="choose-artists" id="create-own-form-inner">
+
+          </div>
         </form>
       </section>
       <div id="confirmation-overlay">
@@ -47,6 +55,70 @@
         </div>
       </div>
     </main>
+    <footer class="footer">
+      <div class="footer_first">
+        <p class="footer_name">Music Festival</p>
+        <p class="big-p">An app that helps you create festival-like playlists</p>
+        <p>&copy; Music Festival 2021</p>
+      </div>
+      
+      <ul class="footer_second">
+        <li>
+          <h2>USEFUL LINKS</h2>
+    
+          <ul class="nav__ul">
+            <li>
+              <a href="./create-own.html">Create your own festival</a>
+            </li>
+    
+            <li>
+              <a href="./music-festival.html">Let us create your festival</a>
+            </li>
+                
+            <li>
+              <a href="./around-world.html">Discover music around the world</a>
+            </li>
+
+            <li>
+              <a href="./playlists-list.html">My playlists history</a>
+            </li>
+          </ul>
+        </li>
+        
+        <li>
+          <h2 class="green_text">CONTACT US</h2>
+          
+          <ul class="nav__ul nav_contact">
+            <li>
+              <i class="fa fa-phone"></i>
+              <a href="tel:0372-363-282">0372 363 282</a>
+            </li>
+            
+            <li>
+              <address>
+                <i class="fa fa-map-marker"></i>
+                <a href="https://goo.gl/maps/qGd82gseArFtuDms9">
+                   United Business Center 1, Strada Teodor Mihali nr. 64, Cluj-Napoca 400616
+                </a>
+            </li>
+          </ul>
+        </li>
+
+        <li>
+          <h2>LET'S GET SOCIAL</h2>
+          
+          <ul class="nav__ul">
+            <li><a href="https://www.facebook.com/endava/">Facebook</a></li>
+              <li><a href="https://www.instagram.com/endava/?hl=en">Instagram</a></li>
+              <li><a href="https://twitter.com/endava">Twitter</a></li>
+              <li><a href="https://www.linkedin.com/company/endava">LinkedIn</a></li>
+            <li>
+              <span>Made with ♥ <span class="green_text">remotely</span> from Cluj-Napoca</span>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </footer>
     <script type="module" src="./js/display-name.js"></script>
     <script src="./js/hamburger-menu.js"></script> 
     <script type="module" src="./js/create-own.js"></script>

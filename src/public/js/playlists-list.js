@@ -1,9 +1,9 @@
-import { getCurrentUserPlaylists, getUserId } from "./user-data.js";
+import { getCurrentUserPlaylists, getUserId } from './user-data.js';
 
-import{ getPlaylistDetails } from "./spotify-requests.js";
+import{ getPlaylistDetails } from './spotify-requests.js';
 
-//import {playPlaylist} from "./spotify-requests.js";
-//import { hasPremiumAccount } from "./user-data.js";
+//import {playPlaylist} from './spotify-requests.js';
+//import { hasPremiumAccount } from './user-data.js';
 
 //hasPremiumAccount();
 
@@ -12,10 +12,10 @@ const userId = await getUserId();
 export async function getUserPlaylistsIds(userId) {
   try {
     const response = await fetch(`http://127.0.0.1:8080/playlists/${userId}`, {
-      method: "GET",
+      method: 'GET',
       headers: {
-        Accept: "*/*",
-        "Content-Type": "application/json",
+        Accept: '*/*',
+        'Content-Type': 'application/json',
       },
     });
     const userPlaylists = await response.json();
@@ -31,10 +31,10 @@ export async function getUserPlaylistsIds(userId) {
 export async function getUserPlaylistsTypes(playlistType) {
   try {
     const response = await fetch(`http://127.0.0.1:8080/playlists/${playlistType}`, {
-      method: "GET",
+      method: 'GET',
       headers: {
-        Accept: "*/*",
-        "Content-Type": "application/json",
+        Accept: '*/*',
+        'Content-Type': 'application/json',
       },
     });
     const userPlaylists = await response.json();
@@ -52,10 +52,10 @@ async function removePlaylist(userId, playlistId) {
     await fetch(
       `http://127.0.0.1:8080/playlists/removePlaylist/${userId}?playlistId=${playlistId}`,
       {
-        method: "PATCH",
+        method: 'PATCH',
         headers: {
-          Accept: "*/*",
-          "Content-Type": "application/json",
+          Accept: '*/*',
+          'Content-Type': 'application/json',
         },
       }
     );
@@ -66,21 +66,21 @@ async function removePlaylist(userId, playlistId) {
 
 async function showPlaylists(userPlaylists){
     const playlistDetails= await getPlaylistDetails(userPlaylists);
-    const playlistList = document.getElementById("playlist-list");
+    const playlistList = document.getElementById('playlist-list');
 
-    const playlistCard = document.createElement("div");
-    playlistCard.classList.add("artist-card");
-    playlistCard.classList.add("open-playlist");
+    const playlistCard = document.createElement('div');
+    playlistCard.classList.add('artist-card');
+    playlistCard.classList.add('open-playlist');
 
-    const playlistName = document.createElement("p");
+    const playlistName = document.createElement('p');
     const contentPlaylistName = document.createTextNode(playlistDetails.playlistName);
 
     const playlistImage = playlistDetails.playlistImage;
-    playlistCard.style.backgroundImage = "url(" + playlistImage + ")";
+    playlistCard.style.backgroundImage = 'url(' + playlistImage + ')';
 
     const playlistUrl = playlistDetails.playlistUrl;
 
-    playlistCard.addEventListener("click", (event) => {
+    playlistCard.addEventListener('click', (event) => {
       window.open(playlistUrl, '_blank').focus();
     });
 
@@ -114,14 +114,14 @@ async function renderPlaylist(){
     await removeDeletedPlaylists(userPlaylistsIds);
     userPlaylistsIds = await getUserPlaylistsIds(userId);
     if(!userPlaylistsIds.length) {
-      const bird = document.getElementById("happy-bird");
-      bird.style.display = "block";
+      const bird = document.getElementById('happy-bird');
+      bird.style.display = 'block';
     }
     for (let playlistId of userPlaylistsIds) {
       await showPlaylists(playlistId);
     }
   } catch {
-    console.log("Sometimes went wrong");
+    console.log('Sometimes went wrong');
   }
 };
 await renderPlaylist();

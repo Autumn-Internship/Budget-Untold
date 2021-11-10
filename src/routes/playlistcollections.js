@@ -58,7 +58,7 @@ router.patch("/updateCollection/:userId", async (req, res) => {
       { userId: userId },
       { $push: { playlists: { id: playlistId, playlistType: playlistType } } }
     );
-    res.status(204).json({ success: true, value: playlistCollectionUpdated });
+    res.status(200).json({ success: true, value: playlistCollectionUpdated });
   } catch (error) {
     console.log("ERROR IS:", error);
   }
@@ -85,7 +85,7 @@ router.delete("/deleteCollection/:userId", async (req, res) => {
   try {
     const userId = req.params.userId;
     await PlaylistCollection.deleteOne({ userId: userId });
-    res.status(204).json({ value: userId });
+    res.status(200).json({ value: userId });
   } catch (error) {
     console.log("ERROR IS:", error);
   }
@@ -98,9 +98,9 @@ router.patch("/removePlaylist/:userId", async (req, res) => {
     const playlistId = req.query.playlistId;
     const playlistCollectionUpdated = await PlaylistCollection.updateOne(
       { userId: userId },
-      { $pull: { playlists: { id: playlistId } } }
+      { $pull: { playlists: { id: playlistId } } },
     );
-    res.status(204).json({ success: true, value: playlistCollectionUpdated });
+    res.status(200).json({ success: true, value: playlistCollectionUpdated });
   } catch (error) {
     console.log("ERROR IS:", error);
   }

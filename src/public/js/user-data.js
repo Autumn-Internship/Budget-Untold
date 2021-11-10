@@ -30,7 +30,7 @@ export async function hasPremiumAccount() {
     let userProduct = userData.product;
     console.log(userProduct);
     if(userProduct === 'premium') {
-        return true
+        return true;
     } else {
         return false;
     }
@@ -52,10 +52,10 @@ export async function upsertPlaylistCollection( userId, playlistId, playlistType
       await fetch(
         `http://127.0.0.1:8080/playlists/upsert/${userId}?playlistId=${playlistId}&playlistType=${playlistType}`,
         {
-          method: "PUT",
+          method: 'PUT',
           headers: {
-            Accept: "*/*",
-            "Content-Type": "application/json",
+            Accept: '*/*',
+            'Content-Type': 'application/json',
           },
         }
       );

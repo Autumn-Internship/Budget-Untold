@@ -1,18 +1,18 @@
-import { authToken, getUserId, upsertPlaylistCollection } from "./user-data.js";
+import { authToken, getUserId, upsertPlaylistCollection } from './user-data.js';
 import {
   getTopArtists,
   getTopArtistsTracks,
   getEmptyPlaylistId,
   addTracksToPlaylist,
-} from "./spotify-requests.js";
+} from './spotify-requests.js';
 
-const confirmationElement = document.getElementById("confirmation-message");
-const confirmationButton = document.getElementById("confirmation-button");
-const confirmationOverlay = document.getElementById("confirmation-overlay");
-const succesfulConfirmation = document.getElementById("succesful-confirmation");
+const confirmationElement = document.getElementById('confirmation-message');
+const confirmationButton = document.getElementById('confirmation-button');
+const confirmationOverlay = document.getElementById('confirmation-overlay');
+const succesfulConfirmation = document.getElementById('succesful-confirmation');
 
-const makeOwnSubmit = document.getElementById("create-own-form");
-const formInnerContent = document.getElementById("create-own-form-inner");
+const createOwnForm = document.getElementById('create-own-form');
+const formInnerContent = document.getElementById('create-own-form-inner');
 
 async function getRelatedArtists() {
   const topArtistsResponse = await getTopArtists();
@@ -24,11 +24,11 @@ async function getRelatedArtists() {
     const relatedArtists = await fetch(
       `https://api.spotify.com/v1/artists/${artistId}/related-artists`,
       {
-        method: "GET",
+        method: 'GET',
         headers: {
           Authorization: `Bearer ${authToken()}`,
-          Accept: "application/json",
-          "Content-Type": "application/json",
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
         },
       }
     );
@@ -100,12 +100,12 @@ async function getTopAndRelatedArtists() {
 
 async function generateCheckboxes(artists) {
   for (let i = 0; i < artists.length; i++) {
-    const label = document.createElement("label");
+    const label = document.createElement('label');
 
-    let checkbox = document.createElement("input");
-    checkbox.type = "checkbox";
+    let checkbox = document.createElement('input');
+    checkbox.type = 'checkbox';
 
-    let customCheckbox = document.createElement("span");
+    let customCheckbox = document.createElement('span');
 
     let randomNumber = Math.floor(Math.random() * 2);
     checkbox.id = artists[i].artistObjectId[randomNumber];
@@ -114,13 +114,13 @@ async function generateCheckboxes(artists) {
     let image = new Image(200, 200);
     image.src = artists[i].artistObjectUrl[randomNumber];
 
-    const artistName = document.createElement("span");
+    const artistName = document.createElement('span');
     artistName.innerHTML = artists[i].artistObjectName[randomNumber];
-    artistName.className = "checkbox-artist-name";
+    artistName.className = 'checkbox-artist-name';
 
-    checkbox.className = "default-checkbox";
-    customCheckbox.className = "custom-checkbox";
-    label.className = "checkbox-label";
+    checkbox.className = 'default-checkbox';
+    customCheckbox.className = 'custom-checkbox';
+    label.className = 'checkbox-label';
     
     label.appendChild(checkbox);
     label.appendChild(customCheckbox)
@@ -130,13 +130,13 @@ async function generateCheckboxes(artists) {
     formInnerContent.appendChild(label);
   }
 
-  let buttonSubmit = document.createElement("button");
-  buttonSubmit.type = "submit";
-  buttonSubmit.id = "create-own-form-button";
-  buttonSubmit.className = "main-button";
-  buttonSubmit.innerHTML = "Submit";
+  let buttonSubmit = document.createElement('button');
+  buttonSubmit.type = 'submit';
+  buttonSubmit.id = 'create-own-form-button';
+  buttonSubmit.className = 'main-button';
+  buttonSubmit.innerHTML = 'Submit';
 
-  makeOwnSubmit.appendChild(buttonSubmit);
+  createOwnForm.appendChild(buttonSubmit);
 }
 
 function renderArtists() {
@@ -145,14 +145,14 @@ function renderArtists() {
       generateCheckboxes(result);
     });
   } catch {
-    console.log("Sometimes went wrong");
+    console.log('Sometimes went wrong');
   }
 }
 
-async function generateMakeOwnPlaylist(checkedIdsArray) {
+async function generateMakeOwnPlaylist(checkedIdsArray, playlistName, playlistDescription) {
   const playlistId = await getEmptyPlaylistId(
-    "My playlist",
-    "My favorite artists' top tracks"
+    playlistName,
+    playlistDescription
   );
   let tracksUris = [];
   for (let artistId of checkedIdsArray) {
@@ -166,10 +166,14 @@ async function generateMakeOwnPlaylist(checkedIdsArray) {
       return playlistId;
 }
 
-makeOwnSubmit.addEventListener("submit", async function (event) {
+createOwnForm.addEventListener('submit', async function (event) {
   event.preventDefault();
-  confirmationOverlay.style.display = "flex";
+  confirmationOverlay.style.display = 'flex';
   try {
+    let data = new FormData(createOwnForm);
+    let playlistName = data.get('name');
+    let playlistDescription = data.get('description');
+
     const checkedIdsArray = [];
     const checkedArtistsInputs = document.querySelectorAll(
       'input[type="checkbox"]'
@@ -180,24 +184,24 @@ makeOwnSubmit.addEventListener("submit", async function (event) {
         checkedIdsArray.push(checkedArtistsInputs[i].id);
       }
     }
-  
-    const playlistId = await generateMakeOwnPlaylist(checkedIdsArray);
 
-    confirmationElement.innerText = "Your festival has been created!";
-    confirmationButton.innerHTML = "Great!";
+    const playlistId = await generateMakeOwnPlaylist(checkedIdsArray, playlistName, playlistDescription);
+    
+    confirmationElement.innerText = 'Your festival has been created!';
+    confirmationButton.innerHTML = 'Great!';
 
     const userId = await getUserId();
-    await upsertPlaylistCollection(userId, playlistId, "create-own-festival");
+    await upsertPlaylistCollection(userId, playlistId, 'create-own-festival');
   } catch {
-      succesfulConfirmation.style.display = "none";
+      succesfulConfirmation.style.display = 'none';
         confirmationElement.innerHTML =
-        "Something went wrong. Please try again later.";
-        confirmationButton.innerHTML = "Ok";
+        'Something went wrong. Please try again later.';
+        confirmationButton.innerHTML = 'Ok';
   } finally {
-    confirmationButton.addEventListener("click", (event) => {
-        confirmationOverlay.style.display = "none";
-  });
-}
+    confirmationButton.addEventListener('click', (event) => {
+        confirmationOverlay.style.display = 'none';
+    });
+  }
 });
 
 renderArtists();

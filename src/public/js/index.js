@@ -6,6 +6,7 @@ const musicFestivalCardElement = document.getElementById("music-festival");
 const aroundWorldCardElement = document.getElementById("around-world");
 const myPlaylistElement=document.getElementById("my-playlists");
 
+
 if(!currentUser) {
     createOwnCardElement.href = "./authorization.html";
     musicFestivalCardElement.href = "./authorization.html";

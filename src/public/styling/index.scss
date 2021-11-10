@@ -63,7 +63,7 @@ a {
   color: inherit;
 }
 
-.navbar{
+.navbar {
   display: flex;
   justify-content: space-between;
   padding: 16px 16px;
@@ -355,7 +355,7 @@ li {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0,0,0,0.5);
+  background-color: rgba(0, 0, 0, 0.5);
   z-index: 2;
 }
 
@@ -399,7 +399,6 @@ li {
   margin: 24px 0;
 }
 
-
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -433,28 +432,25 @@ li {
   background-color: #101010;
 }
 
-
 .footer {
   display: flex;
-  flex-direction:row;
+  flex-direction: row;
   flex-wrap: nowrap;
   padding: 30px 30px 20px 30px;
   color: #fff;
   background-color: #191414;
   border-top: 1px solid #e5e5e5;
-  bottom:0px;
-  max-width:100%;
+  bottom: 0px;
+  max-width: 100%;
   min-height: calc(100vh - 360px);
   margin-top: 80px;
-  padding-top:80px;
+  padding-top: 80px;
 }
-
 
 .footer_first {
   margin-right: 1.25em;
   margin-bottom: 2em;
   margin-top: 1em;
- 
 }
 
 .footer_name {
@@ -464,13 +460,13 @@ li {
   color: #1db954;
 }
 
-.footer_first p{
+.footer_first p {
   padding: 15px 0px 0px 0px;
-  color:#999;
+  color: #999;
   font-size: 16px;
 }
 
-.footer_first h2{
+.footer_first h2 {
   padding: 0px 80px 0px 0px;
 }
 
@@ -492,7 +488,7 @@ li {
 }
 .footer_second {
   display: flex;
-	flex-flow: row nowrap;
+  flex-flow: row nowrap;
 }
 
 .footer_second > * {
@@ -512,28 +508,20 @@ li {
   text-decoration: none;
 }
 
-
 .green_text {
   color: #1db954;
 }
 
-
-
-
-
-
 @media only screen and (max-width: 768px) {
-
-  .footer{
+  .footer {
     flex-direction: row;
-    flex-wrap:wrap;
+    flex-wrap: wrap;
   }
-  
-  
+
   .footer_first {
     flex: 1 1 auto;
   }
-  
+
   .footer_second {
     display: flex;
     flex-flow: row wrap;
@@ -589,21 +577,22 @@ li {
   }
 }
 
-
-@media only screen and (min-width: 768px){
-
-
+@media only screen and (min-width: 768px) {
   .navbar {
     padding: 24px 40px;
   }
 
   .big-p {
     font-size: 1.5rem;
-    white-space: nowrap;
   }
 
   .medium-p {
     font-size: 1.25rem;
+    white-space: nowrap;
+  }
+
+  .navbar .medium-p {
+    white-space: nowrap;
   }
 
   .nav-list {

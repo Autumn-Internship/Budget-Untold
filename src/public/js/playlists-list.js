@@ -9,9 +9,6 @@ import{ getPlaylistDetails } from "./spotify-requests.js";
 
 const userId = await getUserId();
 
-
-const seeHistoy = document.getElementById("playlist-list-button");
-
 export async function getUserPlaylistsIds(userId) {
   try {
     const response = await fetch(`http://127.0.0.1:8080/playlists/${userId}`, {
@@ -80,12 +77,10 @@ async function showPlaylists(userPlaylists){
 
     const playlistImage = playlistDetails.playlistImage;
     playlistCard.style.backgroundImage = "url(" + playlistImage + ")";
-    const playlistUri = playlistDetails.playlistUri;
 
     const playlistUrl = playlistDetails.playlistUrl;
 
     playlistCard.addEventListener("click", (event) => {
-      //playPlaylist(playlistUri);
       window.open(playlistUrl, '_blank').focus();
     });
 
@@ -113,7 +108,7 @@ async function removeDeletedPlaylists(userPlaylistsIds) {
   }
 }
 
-seeHistoy.onclick = async () => {
+async function renderPlaylist(){
   try {
     let userPlaylistsIds = await getUserPlaylistsIds(userId);
     await removeDeletedPlaylists(userPlaylistsIds);
@@ -129,4 +124,4 @@ seeHistoy.onclick = async () => {
     console.log("Sometimes went wrong");
   }
 };
-
+await renderPlaylist();

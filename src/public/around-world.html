@@ -30,35 +30,97 @@
         </nav>
     </header>
     <main>
-        <section class="main-section">
-            <form class="form" id="world-form">
-                <h1>Your festival awaits!</h1>
-                <label class="label required" for="country">Country </label>
-                <input class ="input" id="country" list="countriesList" name="country" autocomplete="off" required>
-                <datalist id="countriesList">
-                  
-                </datalist>
-                <label class="label required" for="category">Category </label>
-                <input class ="input" id="category" list="categoriesList" name="category" required>
-                <datalist id="categoriesList">
-                  
-                </datalist>
-                    <button id="world-festival-button" type="submit" class="main-button">Create playlist</button>
-                </form>
-        </section>
-        <div id="confirmation-overlay">
-            <div>
-                <p class="big-p" id="confirmation-message"></p>
-                <div id="succesful-confirmation">
-                    <p class="medium-p">Open spotify to play it.</p>
-                    <p class="medium-p">Or click <a class="inline-link" href="./playlists-list.html">here</a> to view your playlists</p>
-                </div>
-                <button form="world-form" class="main-button" type="reset" id="confirmation-button"></button>
-            </div>
-        </div>
+      <section class="main-section">
+        <form class="form" id="world-form">
+            <h1>Your festival awaits!</h1>
+            <label class="label required" for="country">Country </label>
+            <input class="input" id="country" list="countriesList" name="country" autocomplete="off" required>
+            <datalist id="countriesList">
+              
+            </datalist>
+            <label class="label required" for="category">Category </label>
+            <input class ="input" id="category" list="categoriesList" name="category" required>
+            <datalist id="categoriesList">
+              
+            </datalist>
+                <button id="world-festival-button" type="submit" class="main-button">Create playlist</button>
+        </form>
+      </section>
+      <div id="confirmation-overlay">
+          <div>
+              <p class="big-p" id="confirmation-message"></p>
+              <div id="succesful-confirmation">
+                  <p class="medium-p">Open spotify to play it.</p>
+                  <p class="medium-p">Or click <a class="inline-link" href="./playlists-list.html">here</a> to view your playlists</p>
+              </div>
+              <button form="world-form" class="main-button" type="reset" id="confirmation-button"></button>
+          </div>
+      </div>
     </main>
-    
-    
+    <footer class="footer">
+        <div class="footer_first">
+          <p class="footer_name">Music Festival</p>
+          <p class="big-p">An app that helps you create festival-like playlists</p>
+          <p>&copy; Music Festival 2021</p>
+        </div>
+        
+        <ul class="footer_second">
+          <li>
+            <h3>USEFUL LINKS</h3>
+      
+            <ul class="nav__ul">
+              <li>
+                <a href="./create-own.html">Create your own festival</a>
+              </li>
+      
+              <li>
+                <a href="./music-festival.html">Let us create your festival</a>
+              </li>
+                  
+              <li>
+                <a href="./around-world.html">Discover music around the world</a>
+              </li>
+  
+              <li>
+                <a href="./playlists-list.html">My playlists history</a>
+              </li>
+            </ul>
+          </li>
+          
+          <li>
+            <h2 class="green_text">CONTACT US</h2>
+            
+            <ul class="nav__ul nav_contact">
+              <li>
+                <i class="fa fa-phone"></i>
+                <a href="tel:0372-363-282">0372 363 282</a>
+              </li>
+              
+              <li>
+                <address>
+                  <i class="fa fa-map-marker"></i>
+                  <a href="https://goo.gl/maps/qGd82gseArFtuDms9">
+                       United Business Center 1, Strada Teodor Mihali nr. 64, Cluj-Napoca 400616
+                    </a>
+              </li>
+            </ul>
+          </li>
+  
+          <li>
+            <h2>LET'S GET SOCIAL</h2>
+            
+            <ul class="nav__ul">
+              <li><a href="https://www.facebook.com/endava/">Facebook</a></li>
+              <li><a href="https://www.instagram.com/endava/?hl=en">Instagram</a></li>
+              <li><a href="https://twitter.com/endava">Twitter</a></li>
+              <li><a href="https://www.linkedin.com/company/endava">LinkedIn</a></li>
+              <li>
+                <span>Made with ♥ <span class="green_text">remotely</span> from Cluj-Napoca</span>
+              </li>
+            </ul>
+          </li>
+        </ul>
+    </footer>
     <script type="module" src="./js/display-name.js"></script>
     <script src="./js/hamburger-menu.js"></script> 
     <script type="module" src="./js/around-world.js"></script>

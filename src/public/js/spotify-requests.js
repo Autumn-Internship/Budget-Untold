@@ -1,15 +1,15 @@
-import { authToken, getUserId } from "./user-data.js";
+import { authToken, getUserId } from './user-data.js';
 
 export async function getEmptyPlaylistId(playlistName, description) {
   let userId = await getUserId();
   const emptyPlaylist = await fetch(
     `https://api.spotify.com/v1/users/${userId}/playlists`,
     {
-      method: "POST",
+      method: 'POST',
       headers: {
         Authorization: `Bearer ${authToken()}`,
-        Accept: "application/json",
-        "Content-Type": "application/json",
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         name: playlistName,
@@ -26,14 +26,14 @@ export async function getEmptyPlaylistId(playlistName, description) {
 export function addTracksToPlaylist(tracks, playlistId, ) {
   fetch(`https://api.spotify.com/v1/playlists/${playlistId}/tracks`,
     {
-      method: "POST",
+      method: 'POST',
       headers: {
         Authorization: `Bearer ${authToken()}`,
-        Accept: "application/json",
-        "Content-Type": "application/json",
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        "uris": tracks,
+        'uris': tracks,
       }),
     }
   );
@@ -41,13 +41,13 @@ export function addTracksToPlaylist(tracks, playlistId, ) {
 
 export async function getTopArtists() {
   const topArtists = await fetch(
-    "https://api.spotify.com/v1/me/top/artists?limit=10&time_range=long_term",
+    'https://api.spotify.com/v1/me/top/artists?limit=20&time_range=long_term',
     {
-      method: "GET",
+      method: 'GET',
       headers: {
         Authorization: `Bearer ${authToken()}`,
-        Accept: "application/json",
-        "Content-Type": "application/json",
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
       },
     }
   );
@@ -61,7 +61,7 @@ export async function getTopArtists() {
     topArtistsArrayImage.push(artist.images[1].url);
   });
 
-  const topArtistsObject = await {
+  const topArtistsObject = {
     topArtistsArrayName,
     topArtistsArrayId,
     topArtistsArrayImage,
@@ -73,11 +73,11 @@ export async function getTopArtistsTracks(artistId) {
   const response = await fetch(
     `https://api.spotify.com/v1/artists/${artistId}/top-tracks?market=RO`,
     {
-      method: "GET",
+      method: 'GET',
       headers: {
         Authorization: `Bearer ${authToken()}`,
-        Accept: "application/json",
-        "Content-Type": "application/json",
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
       },
     }
   );
@@ -88,11 +88,11 @@ export async function getPlaylistDetails(playlistId) {
   const response = await fetch(
     `https://api.spotify.com/v1/playlists/${playlistId}`,
     {
-      method: "GET",
+      method: 'GET',
       headers: {
         Authorization: `Bearer ${authToken()}`,
-        Accept: "application/json",
-        "Content-Type": "application/json",
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
       },
     }
   );
@@ -115,14 +115,14 @@ return playlistObject;
 //   fetch(
 //     `https://api.spotify.com/v1/me/player/play`,
 //     {
-//       method: "PUT",
+//       method: 'PUT',
 //       headers: {
 //         Authorization: `Bearer ${authToken()}`,
-//         Accept: "application/json",
-//         "Content-Type": "application/json",
+//         Accept: 'application/json',
+//         'Content-Type': 'application/json',
 //       },
 //       body: JSON.stringify({
-//         "context_uri": playlistUri,
+//         'context_uri': playlistUri,
 //       }),
 //     }
 //   );

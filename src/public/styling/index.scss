@@ -23,7 +23,11 @@ body {
 body:not(#home, #sign-in-bg) {
   color: $white;
   font-family: sans-serif;
-  background: radial-gradient(99.13% 183.21% at 99.13% 0%, #0C4D23 0%, #191414 54.74%);
+  background: radial-gradient(
+    99.13% 183.21% at 99.13% 0%,
+    #0c4d23 0%,
+    #191414 54.74%
+  );
   background-repeat: no-repeat;
   background-color: $black;
 }
@@ -43,12 +47,14 @@ body:not(#home, #sign-in-bg) {
   justify-content: center;
 }
 
-#sign-in-bg h2, #sign-in-bg h1 {
+#sign-in-bg h2,
+#sign-in-bg h1 {
   text-shadow: $text-shadow;
   text-align: center;
 }
 
-ul, ol {
+ul,
+ol {
   padding-inline-start: 0;
 }
 
@@ -161,7 +167,8 @@ li {
   transform-style: preserve-3d;
 }
 
-.flip-card-front, .flip-card-back {
+.flip-card-front,
+.flip-card-back {
   position: absolute;
   width: 100%;
   height: 100%;
@@ -426,6 +433,7 @@ li {
   background-color: #101010;
 }
 
+
 .footer {
   display: flex;
   flex-direction:row;
@@ -581,17 +589,19 @@ li {
   }
 }
 
+
 @media only screen and (min-width: 768px){
+
 
   .navbar {
     padding: 24px 40px;
   }
-  
+
   .big-p {
     font-size: 1.5rem;
     white-space: nowrap;
   }
-  
+
   .medium-p {
     font-size: 1.25rem;
   }
@@ -623,19 +633,20 @@ li {
   #home {
     background-image: url("../images/home-bg.jpg");
   }
-  
+
   .menu-wrapper {
     grid-template-columns: auto auto auto auto;
     margin-top: 88px;
     grid-gap: 40px;
   }
-  
+
   .flip-card {
     width: 280px;
     height: 280px;
   }
-  
-  .line-up-wrapper, .playlist-list-wrapper {
+
+  .line-up-wrapper,
+  .playlist-list-wrapper {
     display: grid;
     width: fit-content;
     grid-template-columns: auto auto;
@@ -664,4 +675,3 @@ li {
     grid-gap: 10px;
   }
 }
-

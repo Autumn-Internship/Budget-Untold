@@ -1,5 +1,7 @@
 * {
-  box-sizing: border-box;
+
+  -webkit-box-sizing: border-box;
+
 }
 
 html {
@@ -18,13 +20,18 @@ body {
 body:not(#home, #sign-in-bg) {
   color: #ffffff;
   font-family: sans-serif;
-  background: radial-gradient(99.13% 183.21% at 99.13% 0%, #0C4D23 0%, #191414 54.74%);
+  background: radial-gradient(
+    99.13% 183.21% at 99.13% 0%,
+    #0c4d23 0%,
+    #191414 54.74%
+  );
   background-repeat: no-repeat;
   background-color: #191414;
 }
 
 #sign-in-bg {
   background-image: url("../images/sign-in-bg-img.jpg");
+  -webkit-box-shadow: inset 0 0 0 2000px #1914147a;
   box-shadow: inset 0 0 0 2000px #1914147a;
   background-color: #191414;
   background-repeat: no-repeat;
@@ -37,17 +44,25 @@ body:not(#home, #sign-in-bg) {
   max-height: fit-content;
   display: flex;
   flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
 }
 
-#sign-in-bg h2, #sign-in-bg h1 {
+#sign-in-bg h2,
+#sign-in-bg h1 {
   text-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
   text-align: center;
 }
 
-ul, ol {
+ul,
+ol {
   -webkit-padding-start: 0;
-          padding-inline-start: 0;
+  padding-inline-start: 0;
 }
 
 a {
@@ -57,6 +72,8 @@ a {
 
 .navbar {
   display: flex;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
   justify-content: space-between;
   padding: 16px 16px;
 }
@@ -78,7 +95,15 @@ a {
 
 .main-section {
   display: flex;
+
   flex-direction: column;
+
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
 }
 
@@ -138,6 +163,7 @@ li {
 .menu-wrapper {
   margin-top: 40px;
   display: grid;
+  -ms-grid-columns: auto;
   grid-template-columns: auto;
   grid-gap: 16px;
 }
@@ -149,6 +175,7 @@ li {
   color: white;
   text-decoration: none;
   background-color: transparent;
+  -webkit-perspective: 1000px;
   perspective: 1000px;
 }
 
@@ -157,20 +184,26 @@ li {
   width: 100%;
   height: 100%;
   text-align: center;
-  transition: transform 0.8s;
+  transition: transform 0.8s, -webkit-transform 0.8s;
+  -webkit-transform-style: preserve-3d;
   transform-style: preserve-3d;
 }
 
-.flip-card-front, .flip-card-back {
+.flip-card-front,
+.flip-card-back {
   position: absolute;
   width: 100%;
   height: 100%;
   -webkit-backface-visibility: hidden;
-          backface-visibility: hidden;
+  backface-visibility: hidden;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
-  justify-content: center;
-  border-radius: 6px;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
 }
 
 .flip-card-front h2 {
@@ -179,7 +212,12 @@ li {
 
 .artist-card {
   display: flex;
+
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
+  -webkit-box-align: end;
+  -ms-flex-align: end;
   align-items: flex-end;
   width: 280px;
   height: 240px;
@@ -199,11 +237,15 @@ li {
   font-size: 24px;
   text-align: center;
   margin: 18px 4px;
+  -webkit-filter: drop-shadow(0px 0px 4px rgba(0, 0, 0, 0.4));
+
   filter: drop-shadow(0px 0px 4px rgba(0, 0, 0, 0.4));
 }
 
 .artist-card.open-playlist:hover {
-  filter: brightness(0.5);
+
+  -webkit-filter: brightness(0.5);
+
   cursor: pointer;
 }
 
@@ -226,10 +268,16 @@ li {
 
 .flip-card-back {
   background-color: #1db954;
+
+  -webkit-transform: rotateY(-180deg);
+
   transform: rotateY(-180deg);
 }
 
 .flip-card:hover .flip-card-inner {
+
+  -webkit-transform: rotateY(-180deg);
+
   transform: rotateY(-180deg);
 }
 
@@ -240,6 +288,11 @@ li {
 .form {
   width: 300px;
   display: flex;
+
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+
   flex-direction: column;
 }
 
@@ -256,6 +309,9 @@ li {
 
 #create-own-form-inner {
   display: grid;
+
+  -ms-grid-columns: auto;
+
   grid-template-columns: auto;
   grid-gap: 10px;
   width: -webkit-fit-content;
@@ -266,6 +322,10 @@ li {
 .form.form-desktop {
   width: 280px;
   margin-top: 24px;
+
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+
   align-items: center;
 }
 
@@ -293,9 +353,9 @@ li {
   cursor: pointer;
   font-size: 22px;
   -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
   width: 200px;
   height: 200px;
 }
@@ -329,7 +389,7 @@ li {
   text-align: center;
   text-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
   -webkit-backdrop-filter: brightness(0.5);
-          backdrop-filter: brightness(0.5);
+  backdrop-filter: brightness(0.5);
 }
 
 .default-checkbox {
@@ -341,6 +401,9 @@ li {
 }
 
 .checkbox-label:hover .custom-checkbox img {
+
+  -webkit-filter: brightness(0.5);
+
   filter: brightness(0.5);
 }
 
@@ -400,8 +463,24 @@ li {
 
 #happy-bird {
   display: none;
-  margin: 24px 0;
+
 }
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+}
+.hamburger {
+  display: none;
+}
+.nav-menu {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 
 .navbar {
   display: flex;
@@ -420,6 +499,7 @@ li {
   align-items: center;
 }
 
+
 .nav-item {
   margin-left: 5rem;
 }
@@ -433,9 +513,11 @@ li {
   width: 25px;
   height: 3px;
   margin: 5px auto;
+  -webkit-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
   background-color: #101010;
 }
+
 
 .footer {
   display: flex;
@@ -584,7 +666,9 @@ li {
     font-size: 1.5rem;
   }
 }
+
 @media only screen and (min-width: 768px) {
+
   .navbar {
     padding: 24px 40px;
   }
@@ -617,6 +701,9 @@ li {
   }
 
   #create-own-form-inner {
+
+    -ms-grid-columns: auto auto auto;
+
     grid-template-columns: auto auto auto;
   }
 }
@@ -636,14 +723,17 @@ li {
     height: 280px;
   }
 
-  .line-up-wrapper, .playlist-list-wrapper {
+  .line-up-wrapper,
+  .playlist-list-wrapper {
+    display: -ms-grid;
     display: grid;
     width: -webkit-fit-content;
     width: -moz-fit-content;
     width: fit-content;
+    -ms-grid-columns: auto auto;
     grid-template-columns: auto auto;
-    -moz-column-gap: 40px;
-         column-gap: 40px;
+    -webkit-column-gap: 40px;
+    column-gap: 40px;
     margin: 0 auto;
   }
 
@@ -664,7 +754,11 @@ li {
   }
 
   #create-own-form-inner {
+
+    -ms-grid-columns: auto auto auto auto;
     grid-template-columns: auto auto auto auto;
     grid-gap: 10px;
   }
-}/*# sourceMappingURL=index.css.map */
+}
+/*# sourceMappingURL=index.css.map */
+
